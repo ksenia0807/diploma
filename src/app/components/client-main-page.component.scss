@@ -3,6 +3,8 @@
     --main-color: #ECE6F0;
     --shadow: #e3d0f0;
     --text: #000000;
+    --button-text: #3c2c46;
+    --slider: #684c79;
 
     ::ng-deep {
         .search{
@@ -31,6 +33,27 @@
 
         .p-dropdown:not(.p-disabled).p-focus {
             box-shadow: 0 0 0 0.2rem var(--shadow); 
+        }
+
+        .p-button {
+            background-color: var(--main-color);
+            color: var(--button-text);
+            border: none;
+            &:hover {
+                background: var(--shadow); 
+            }
+        }
+
+        .p-slider {
+            .p-slider-range {
+              background: var(--slider); 
+            }
+            .p-slider-handle {
+              border: 2px solid var(--shadow); 
+              &:hover {
+                background: var(--shadow);
+              }
+            }
         }
     }
 

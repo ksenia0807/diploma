@@ -106,6 +106,4 @@ export class ClientMainPageComponent {
     return found ? found.label : this.priceRange;
   }
 
-  
-    
 }
