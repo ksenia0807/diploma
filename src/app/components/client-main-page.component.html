@@ -11,23 +11,19 @@
     </div>
     
     <div class="justify-self-center flex justify-content-center gap-3">
-        <p-floatLabel>
             <p-dropdown
             [options]="Cityfilters" 
             [(ngModel)]="selectedCity" 
-            inputId="float-label"
+            placeholder="Город"
             optionLabel="name" 
             [filter]="true"
             [showClear]="true" />
-            <label for="float-label">Город</label>
-        </p-floatLabel>
 
         <div>
-        <p-floatLabel>
             <p-dropdown 
             [(ngModel)]="priceRange" 
             [options]="priceOptions" 
-            inputId="float-label"
+            placeholder="Цена"
             (onChange)="onPriceChange()">
                 <ng-template pTemplate="selectedItem">
                     <span *ngIf="priceRange !== 'custom'">
@@ -42,8 +38,7 @@
                   <i class="pi pi-sliders-h"></i>
                 </ng-template>
             </p-dropdown>
-            <label for="float-label">Цена</label>
-        </p-floatLabel>
+        
           
         <p-dialog 
         [(visible)]="showSlider" 
