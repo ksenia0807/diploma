@@ -1,9 +1,5 @@
 :host {
 
-    --main-color: #ECE6F0;
-    --shadow: #e3d0f0;
-    --text: #000000;
-
     ::ng-deep {
         .search{
             .p-dropdown {
@@ -32,6 +28,32 @@
         .p-dropdown:not(.p-disabled).p-focus {
             box-shadow: 0 0 0 0.2rem var(--shadow); 
         }
+
+        .p-button {
+            background-color: var(--main-color);
+            color: var(--button-text);
+            border: none;
+            &:hover {
+                background: var(--shadow); 
+            }
+        }
+
+        .p-slider {
+            .p-slider-range {
+              background: var(--slider); 
+            }
+            .p-slider-handle {
+              border: 2px solid var(--shadow); 
+              &:hover {
+                background: var(--shadow);
+              }
+            }
+        }
+
+        .pi.pi-user {
+            font-size: 2rem;
+        }
+
     }
 
     .justify-self-center {
@@ -45,4 +67,16 @@
           margin-top: 1.5rem;
         }
     }
+
+    .profile {
+        margin-left: 29vw;
+        background-color: var(--main-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+    }
 }
+

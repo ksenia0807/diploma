@@ -16,7 +16,7 @@ interface CityFilter {
 }
 
 @Component({
-  selector: 'app-client-main-page',
+  selector: 'app-client-page-header',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,10 +27,10 @@ interface CityFilter {
     SliderModule,
     ButtonModule,
   ],
-  templateUrl: './client-main-page.component.html',
-  styleUrl: './client-main-page.component.scss'
+  templateUrl: './client-page-header.component.html',
+  styleUrl: './client-page-header.component.scss'
 })
-export class ClientMainPageComponent {
+export class ClientPageHeaderComponent {
 
   public readonly services: Service[] = [
     { name: 'Уборка помещений' },
@@ -105,7 +105,4 @@ export class ClientMainPageComponent {
     const found = this.priceOptions.find(opt => opt.value === this.priceRange);
     return found ? found.label : this.priceRange;
   }
-
-  
-    
 }
