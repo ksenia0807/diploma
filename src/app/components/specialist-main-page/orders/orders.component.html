@@ -6,7 +6,7 @@
       </div>
     </ng-template>
   
-    <p>{{ getOrderDescription(order) }}</p>
+    <p [innerHTML] = "getOrderDescription(order)"></p>
   
     <ng-template pTemplate="footer">
       <div class="order-actions">

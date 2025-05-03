@@ -6,14 +6,16 @@
     [showWeek]="true" 
     (onSelect)="onDateSelect($event)"/>
 
-    <p-card *ngIf="orderVisible" [style]="{ width: '100%' }" [ngClass]="order.status">
-        <ng-template pTemplate="header">
-        <div class="order-header">
-            <h2>{{ order.title }}</h2>
-            <span class="order-status" [ngClass]="order.status">{{ statusLabel }}</span>
-        </div>
-        </ng-template>
-        <p>{{ description }}</p>
-    </p-card>
+    <p-scrollPanel [style]="{ width: '65%', height: '235px' }">
+        <p-card *ngIf="orderVisible" [style]="{ width: '100%' }" [ngClass]="order.status">
+            <ng-template pTemplate="header">
+            <div class="order-header">
+                <h2>{{ order.title }}</h2>
+                <span class="order-status" [ngClass]="order.status">{{ statusLabel }}</span>
+            </div>
+            </ng-template>
+            <p>{{ description }}</p>
+        </p-card>
+    </p-scrollPanel>
 </div>
 

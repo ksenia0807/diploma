@@ -4,11 +4,18 @@ import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { Order, OrderSharedService } from 'src/app/order-shared.service';
 import { CardModule } from 'primeng/card';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [CommonModule, CalendarModule, FormsModule, CardModule],
+  imports: [
+    CommonModule, 
+    CalendarModule, 
+    FormsModule, 
+    CardModule,
+    ScrollPanelModule
+  ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss'
 })

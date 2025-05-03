@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { HttpContext } from '@angular/common/http';
 
 @Component({
   selector: 'app-orders',
@@ -31,7 +32,7 @@ export class OrdersComponent {
   }
   
   public getOrderDescription(order = this.order): string {
-    return `${order.jobDescription} Адрес: ${order.address}. Дата: ${order.date} Время: ${order.time}.`;
+    return `${order.jobDescription} Адрес: ${order.address}. Дата: <b>${order.date}</b> Время: <b>${order.time}</b>.`;
   }
   
   public getStatusLabel(status: string): string {
