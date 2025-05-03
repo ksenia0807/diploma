@@ -35,6 +35,8 @@ export class ClientPageHeaderComponent {
   public readonly services: Service[] = [
     { name: 'Уборка помещений' },
     { name: 'Химчистка' },
+    { name: 'Услуги сантехника' },
+    { name: 'Услуги электрика' },
     { name: 'Ремонт бытовой техники' },
     { name: 'Ремонт и обслуживание автомобилей' },
     { name: 'Благоустроуство' },

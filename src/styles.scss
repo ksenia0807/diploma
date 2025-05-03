@@ -8,3 +8,33 @@ body {
     padding: 32px;
     font-family: "Inter var", sans-serif;
 }
+
+.pi.pi-user {
+    font-size: 2rem;
+}
+
+.justify-self-center {
+    justify-self: center;
+}
+
+.profile {
+    background-color: var(--main-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.feed {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding: 32px;
+}
+
+.orders {
+    gap: 32px;
+    
+}

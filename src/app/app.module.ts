@@ -4,6 +4,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClientMainPageComponent } from "./components/client-main-page/client-main-page.component";
+import { SpecialistMainPageComponent } from "./components/specialist-main-page/specialist-main-page.component";
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { ClientMainPageComponent } from "./components/client-main-page/client-ma
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ClientMainPageComponent
+    ClientMainPageComponent,
+    SpecialistMainPageComponent
 ],
   providers: [provideAnimations()],
   bootstrap: [AppComponent]

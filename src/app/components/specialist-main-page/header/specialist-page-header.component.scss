@@ -1,0 +1,20 @@
+:host {
+    ::ng-deep {
+        .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+            background-color: var(--shadow);
+            border-color: var(--title);
+            color: var(--button-text);
+        }
+
+        .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+            background-color: var(--main-color);
+            border-radius: 0 !important;
+        }
+
+        .p-tabmenu {
+            border-radius: 8px 8px 0 0 !important; /* Скругление всего блока */
+            overflow: hidden; /* Чтобы внутренние элементы не выходили за скругление */
+        }
+
+    }
+}
