@@ -1,4 +1,4 @@
-<p-card *ngIf="orderVisible" [style]="{ width: '30rem' }" [ngClass]="order.status">
+<p-card *ngIf="orderVisible" [style]="{ width: '100%' }" [ngClass]="order.status">
     <ng-template pTemplate="header">
       <div class="order-header">
         <h2>{{ order.title }}</h2>
@@ -6,7 +6,7 @@
       </div>
     </ng-template>
   
-    <p>{{ order.description }}</p>
+    <p>{{ getOrderDescription(order) }}</p>
   
     <ng-template pTemplate="footer">
       <div class="order-actions">

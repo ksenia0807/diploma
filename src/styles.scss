@@ -34,7 +34,12 @@ body {
     padding: 32px;
 }
 
-.orders {
-    gap: 32px;
-    
+.p-button {
+    background-color: var(--main-color);
+    color: var(--button-text);
+    border: none;
+    &:hover {
+        background: var(--shadow); 
+    }
 }
+  

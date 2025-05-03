@@ -1,9 +1,15 @@
 :host 
-    ::ng-deep .p-card {
-    padding: 16px;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(60,44,70,0.07);
-    border: 1px solid #ece6f0;
+    ::ng-deep {
+      .p-card .p-card-body {
+        padding: 0;
+      }
+
+      .p-card {
+        padding: 16px;
+        border-radius: 16px;
+        box-shadow: 0 4px 16px rgba(60,44,70,0.07);
+        border: 1px solid #ece6f0;
+    }
   }
   
  .order-header {
