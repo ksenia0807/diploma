@@ -1,0 +1,19 @@
+<div class="flex justify-self-center justify-content-center mt-7">
+    <p-card [style]="{ width: '600px' }">
+        <div class="flex flex-column gap-7 align-items-center">
+            <h1>Вход в систему</h1>
+            <div class="auth flex flex-column align-items-center gap-5">
+                <p-floatLabel>
+                    <input pInputText id="username" [(ngModel)]="login" />
+                    <label for="username">Имя пользователя</label>
+                </p-floatLabel>
+                <p-floatLabel>
+                    <p-password [(ngModel)]="password" [toggleMask]="true" />
+                    <label for="username">Пароль</label>
+                </p-floatLabel> 
+                <p-button label="Войти"></p-button> 
+            </div>
+        </div>
+    </p-card>
+</div>
+
