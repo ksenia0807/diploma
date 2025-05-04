@@ -1,0 +1,79 @@
+:host {
+    ::ng-deep {
+
+        .p-datepicker {
+          
+          border: 1px solid var(--shadow); 
+        }
+      
+        .p-datepicker-header {
+          background: var(--main-color); 
+        }
+      
+        .p-datepicker-calendar th {
+          color: var(--title); 
+        }
+      
+        .p-datepicker-calendar td {
+          color: var(--title); 
+        }
+      
+        .p-datepicker-calendar td.p-datepicker-today > span {
+          background: var(--main-color); 
+          color: var(--title);
+        }
+
+        .p-card {
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(60,44,70,0.07);
+            border: 1px solid #ece6f0;
+        }
+
+        .p-card .p-card-body  {
+            padding: 0;
+        }
+
+        .p-card .p-card-content {
+          padding: 0;
+        }
+      
+    }
+  
+ .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  
+    h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: var(--title);
+    }
+
+    p {
+      font-size: 0.5rem;
+    }
+  
+    .order-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: white;
+      text-transform: uppercase;
+  
+      &.new {
+        background-color: #f57c00; /* оранжевый - поступивший */
+      }
+      &.inprogress {
+        background-color: #1976d2; /* синий - в процессе */
+      }
+      &.completed {
+        background-color: #388e3c; /* зелёный - завершён */
+      }
+    }
+  }
+
+}
