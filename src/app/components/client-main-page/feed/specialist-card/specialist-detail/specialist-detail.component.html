@@ -1,0 +1,33 @@
+<div class="flex flex-column gap-3">
+    <!-- Карусель с фотографиями -->
+    <p-galleria [value]="specialist.photos"
+                [showThumbnails]="false"
+                [circular]="true"
+                [containerStyle]="{ 'max-width': '500px', 'margin': '0 auto' }"
+                [numVisible]="3"
+                [showItemNavigators]="true"
+                [showIndicators]="true">
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item" style="width: 100%; display: block;" />
+        </ng-template>
+    </p-galleria>
+  
+    <!-- Описание -->
+    <div class="mt-3">
+      <h2>{{ specialist.title }}</h2>
+      <p class="mb-2">{{ specialist.fullDescription }}</p>
+      <div class="mb-2">
+        <i class="pi pi-map-marker"></i>
+        <b>Город:</b> {{ specialist.location }}
+      </div>
+      <div>
+        <b>Цены на услуги:</b>
+        <ul class="pl-3">
+          <li *ngFor="let service of specialist.services">
+            {{ service.name }} - <b>{{ service.price | number }} ₽</b>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
