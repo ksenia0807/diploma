@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { SpecialistDetailComponent } from "./specialist-detail/specialist-detail.component";
+import { Router } from '@angular/router';
+import { Specialist, SpecialistService } from 'src/app/services/specialist.service';
 
 @Component({
   selector: 'app-specialist-card',
@@ -11,42 +12,29 @@ import { SpecialistDetailComponent } from "./specialist-detail/specialist-detail
     CommonModule,
     ButtonModule,
     DialogModule,
-    SpecialistDetailComponent
 ],
   templateUrl: './specialist-card.component.html',
   styleUrl: './specialist-card.component.scss'
 })
 export class SpecialistCardComponent {
 
-  public readonly rating = [4.7, 5, 4.9, 3.8]
+  specialists: Specialist[] = [];
 
-  public dialogVisible = false;
-  public selectedSpecialist: any = null;
+  constructor(
+    private router: Router,
+    private specialistService: SpecialistService
+  ) {
+    this.loadSpecialists();
+  }
 
-  public readonly specialists = [
-    {
-      title: 'Услуги сантехника',
-      rating: 4.9,
-      photos: [
-        'assets/man.jpg',
-        'assets/2.jpg',
-        'assets/3.jpg'
-      ],
-      shortDescription: 'Я мастер с опытом работы более 8 лет, специализирующийся на установке и ремонте водопроводных и отопительных систем. Выполняю работы любой сложности, гарантирую качество и аккуратность.',
-      fullDescription: 'Я мастер с опытом работы более 8 лет, специализирующийся на установке и ремонте водопроводных и отопительных систем. Выполняю работы любой сложности, гарантирую качество и аккуратность.',
-      location: 'Москва',
-      services: [
-        { name: 'Установка смесителя', price: 1200 },
-        { name: 'Ремонт трубы', price: 1500 },
-        { name: 'Устранение засора', price: 1000 }
-      ]
-    }
-    // ...другие специалисты
-  ];
+  loadSpecialists() {
+    this.specialistService.getSpecialists().subscribe(data => {
+      this.specialists = data;
+    });
+  }
 
-  public openCard(specialist: any) {
-    this.selectedSpecialist = specialist;
-    this.dialogVisible = true;
+  openCard(specialist: Specialist) {
+    this.router.navigate(['/specialist', specialist.id]);
   }
 
 }

@@ -7,6 +7,7 @@ import { ClientMainPageComponent } from "./components/client-main-page/client-ma
 import { SpecialistMainPageComponent } from "./components/specialist-main-page/specialist-main-page.component";
 import { AuthPageComponent } from "./components/auth-page/auth-page.component";
 
+
 @NgModule({
   declarations: [
     AppComponent

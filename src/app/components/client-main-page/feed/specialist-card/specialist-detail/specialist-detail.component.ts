@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GalleriaModule } from 'primeng/galleria';
+import { ActivatedRoute } from '@angular/router';
+import { Specialist, SpecialistService } from 'src/app/services/specialist.service';
 
 @Component({
   selector: 'app-specialist-detail',
@@ -9,7 +11,31 @@ import { GalleriaModule } from 'primeng/galleria';
   templateUrl: './specialist-detail.component.html',
   styleUrl: './specialist-detail.component.scss'
 })
-export class SpecialistDetailComponent {
+export class SpecialistDetailComponent implements OnInit{
 
-  @Input() specialist: any;
+  specialist?: Specialist;
+  loading = true;
+  error = '';
+
+  constructor(
+    private route: ActivatedRoute,
+    private specialistService: SpecialistService
+  ) {}
+
+  ngOnInit() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.specialistService.getSpecialistById(id).subscribe({
+      next: (spec) => {
+        this.specialist = spec;
+        this.loading = false;
+        if (!spec) {
+          this.error = 'Специалист не найден';
+        }
+      },
+      error: () => {
+        this.error = 'Ошибка загрузки данных';
+        this.loading = false;
+      }
+    });
+  }
 }
