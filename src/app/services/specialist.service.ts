@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export interface Specialist {
   id: number;
@@ -63,15 +63,10 @@ export class SpecialistService {
     },
   ];
 
-  constructor() { }
-
-  /** Получить всех специалистов */
   public getSpecialists(): Observable<Specialist[]> {
-    // Имитируем задержку сервера 500мс
     return of(this.specialists).pipe();
   }
 
-  /** Получить специалиста по id */
   public getSpecialistById(id: number): Observable<Specialist | undefined> {
     return this.getSpecialists().pipe(
       map(specialists => specialists.find(s => s.id === id))

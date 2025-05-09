@@ -1,5 +1,4 @@
 <div class="p-m-3" *ngIf="specialist">
-    <!-- Карусель фотографий -->
     <p-galleria 
       [value]="specialist.photos"
       [showThumbnails]="true"
@@ -17,7 +16,6 @@
       </ng-template>
     </p-galleria>
   
-    <!-- Информация о специалисте -->
     <div class="p-mt-4">
       <h2>{{ specialist.title }}</h2>
       <p>{{ specialist.fullDescription }}</p>
