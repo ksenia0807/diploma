@@ -1,0 +1,35 @@
+:host {
+    
+    ::ng-deep {
+        .p-card .p-card-content {
+            padding: 0;
+        }
+
+        .p-card {
+            background-color: var(--main-color);
+        }
+
+        .p-inputtext {
+            width: 249px;
+        }
+
+        .p-inputtext:focus,.p-password-input:focus {
+            outline: none !important;
+            box-shadow: none !important;
+            border-color: inherit !important; 
+        }
+
+        .p-inputtext:hover,.p-password-input:hover {
+            border-color: var(--button-text) !important; 
+        }
+
+    }
+
+    h1 {
+        color: var(--title);
+    }
+
+    .auth {
+        margin-block-end: 16px;
+    }
+}

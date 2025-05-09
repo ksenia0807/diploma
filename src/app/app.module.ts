@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClientMainPageComponent } from "./components/client-main-page/client-main-page.component";
 import { SpecialistMainPageComponent } from "./components/specialist-main-page/specialist-main-page.component";
+import { AuthPageComponent } from "./components/auth-page/auth-page.component";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { SpecialistMainPageComponent } from "./components/specialist-main-page/s
     BrowserModule,
     AppRoutingModule,
     ClientMainPageComponent,
-    SpecialistMainPageComponent
+    SpecialistMainPageComponent,
+    AuthPageComponent
 ],
   providers: [provideAnimations()],
   bootstrap: [AppComponent]

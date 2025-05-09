@@ -43,3 +43,7 @@ body {
     }
 }
   
+.p-button:enabled:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
