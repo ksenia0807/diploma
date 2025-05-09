@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GalleriaModule } from 'primeng/galleria';
 import { ActivatedRoute } from '@angular/router';
 import { Specialist, SpecialistService } from 'src/app/services/specialist.service';
+import { ButtonModule } from 'primeng/button';
+import { OrderModalService } from 'src/app/services/order-modal.service';
+
 
 @Component({
   selector: 'app-specialist-detail',
   standalone: true,
-  imports: [CommonModule, GalleriaModule],
+  imports: [CommonModule, GalleriaModule, ButtonModule],
   templateUrl: './specialist-detail.component.html',
-  styleUrl: './specialist-detail.component.scss'
+  styleUrl: './specialist-detail.component.scss',
+  providers: [OrderModalService]
 })
 export class SpecialistDetailComponent implements OnInit{
 
   specialist?: Specialist;
   loading = true;
   error = '';
+  displayDialog = false;
 
   constructor(
     private route: ActivatedRoute,
-    private specialistService: SpecialistService
+    private specialistService: SpecialistService,
   ) {}
 
   ngOnInit() {
@@ -37,5 +42,18 @@ export class SpecialistDetailComponent implements OnInit{
         this.loading = false;
       }
     });
+
+  }
+
+  private readonly _orderDialogService = inject(OrderModalService);
+
+  public showDialog() {
+    this._orderDialogService.open(this.specialist?.services ?? []);
+  }
+
+  onOrderSubmit(orderData: any) {
+    console.log('Получена заявка:', orderData);
+    // Здесь можно отправить данные на сервер
+    this.displayDialog = false;
   }
 }

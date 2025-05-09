@@ -17,6 +17,10 @@ body {
     justify-self: center;
 }
 
+.justify-self-end {
+    justify-self: end;
+}
+
 .profile {
     background-color: var(--main-color);
     display: flex;
