@@ -20,7 +20,6 @@ export class SpecialistDetailComponent implements OnInit{
   specialist?: Specialist;
   loading = true;
   error = '';
-  displayDialog = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,9 +50,4 @@ export class SpecialistDetailComponent implements OnInit{
     this._orderDialogService.open(this.specialist?.services ?? []);
   }
 
-  onOrderSubmit(orderData: any) {
-    console.log('Получена заявка:', orderData);
-    // Здесь можно отправить данные на сервер
-    this.displayDialog = false;
-  }
 }

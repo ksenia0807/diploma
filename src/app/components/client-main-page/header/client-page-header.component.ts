@@ -6,6 +6,8 @@ import { FloatLabelModule } from "primeng/floatlabel";
 import { DialogModule } from 'primeng/dialog';
 import { SliderModule } from 'primeng/slider';
 import { ButtonModule } from 'primeng/button';
+import { ClientProfileService, User } from 'src/app/services/client-profile.service';
+import { Router } from '@angular/router';
 
 interface Service {
   name: string;
@@ -31,6 +33,8 @@ interface CityFilter {
   styleUrl: './client-page-header.component.scss'
 })
 export class ClientPageHeaderComponent {
+
+  clients: User[] = [];
 
   public readonly services: Service[] = [
     { name: 'Уборка помещений' },
@@ -106,5 +110,22 @@ export class ClientPageHeaderComponent {
 
     const found = this.priceOptions.find(opt => opt.value === this.priceRange);
     return found ? found.label : this.priceRange;
+  }
+
+  constructor(
+    private router: Router,
+    private clientProfileService: ClientProfileService
+  ) {
+      this.loadUsers();
+   }
+  
+  public loadUsers() {
+    this.clientProfileService.getUsers().subscribe(data => {
+      this.clients = data;
+    });
+  }
+
+  public openProfile(user: User) {
+    this.router.navigate(['/user', user.id]);
   }
 }

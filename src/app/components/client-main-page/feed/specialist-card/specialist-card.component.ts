@@ -27,13 +27,13 @@ export class SpecialistCardComponent {
     this.loadSpecialists();
   }
 
-  loadSpecialists() {
+  public loadSpecialists() {
     this.specialistService.getSpecialists().subscribe(data => {
       this.specialists = data;
     });
   }
 
-  openCard(specialist: Specialist) {
+  public openCard(specialist: Specialist) {
     this.router.navigate(['/specialist', specialist.id]);
   }
 

@@ -54,7 +54,8 @@
       <p-button 
       label="Отправить" 
       type="submit" 
-      [disabled]="orderForm.invalid">
+      [disabled]="orderForm.invalid"
+      (onClick)="onOrderSubmit(minDate)">
       </p-button>
     </div>
 
