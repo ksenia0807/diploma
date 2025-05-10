@@ -4,7 +4,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
     CalendarModule,
     DropdownModule,
     DialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputTextModule
   ],
   templateUrl: './order-modal.component.html',
   styleUrl: './order-modal.component.scss'
@@ -23,12 +25,16 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 export class OrderModalComponent implements OnInit {
 
   @Input() visible: boolean = false;
-  public readonly services: { name: string; price: number }[] = [];
   @Output() visibleChange = new EventEmitter<boolean>();
   @Output() submit = new EventEmitter<any>();
 
-  orderForm!: FormGroup;
-  timeOptions = [
+  private readonly _dialogRef = inject(DynamicDialogRef);
+  private readonly _config = inject(DynamicDialogConfig);
+
+  public services: { name: string; price: number }[] = [];
+
+  public orderForm!: FormGroup;
+  public readonly timeOptions = [
     { label: '09:00', value: '09:00' },
     { label: '10:00', value: '10:00' },
     { label: '11:00', value: '11:00' },
@@ -37,11 +43,12 @@ export class OrderModalComponent implements OnInit {
     { label: '14:00', value: '14:00' },
     { label: '15:00', value: '15:00' }
   ];
-  minDate: Date = new Date();
+  public minDate: Date = new Date();
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.services = this._config.data?.services ?? [];
     this.orderForm = this.fb.group({
       service: [null, Validators.required],
       date: [null, Validators.required],
@@ -49,8 +56,6 @@ export class OrderModalComponent implements OnInit {
       address: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
-
-  private readonly _dialogRef = inject(DynamicDialogRef);
 
   public close() {
       this._dialogRef.close();

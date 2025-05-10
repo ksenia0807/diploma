@@ -19,14 +19,14 @@ export class OrderModalService {
             header: "Создание заявки",
             data: { services },
             style: {
-                boxShadow: 'none',
+               
             },
             contentStyle: {
-               gap: "16px",
+                padding: '0 32px 32px 32px'
             },
             dismissableMask: true,
             width: "1000px",
-            height: "600px"
+            height: "570px"
 
         });
         return this._ref;

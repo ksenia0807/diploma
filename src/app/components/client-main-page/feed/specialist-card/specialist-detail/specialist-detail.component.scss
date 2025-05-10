@@ -14,11 +14,19 @@
     }
 
     .p-galleria .p-galleria-item-wrapper img {
-      width: 400px;
+      width: 600px;
       height: 300px;
       object-fit: cover;
       display: block;
       margin: 0 auto;
+    }
+
+    .p-galleria-content {
+      width: 600px;
+    }
+
+    .p-button {
+      padding: 1.5rem 4rem;
     }
 
   }
