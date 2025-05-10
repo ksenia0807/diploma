@@ -6,19 +6,23 @@ import { AppComponent } from './app.component';
 import { ClientMainPageComponent } from "./components/client-main-page/client-main-page.component";
 import { SpecialistMainPageComponent } from "./components/specialist-main-page/specialist-main-page.component";
 import { AuthPageComponent } from "./components/auth-page/auth-page.component";
+import { DialogService } from 'primeng/dynamicdialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ClientMainPageComponent,
     SpecialistMainPageComponent,
-    AuthPageComponent
+    AuthPageComponent,
+    DynamicDialogModule,
 ],
-  providers: [provideAnimations()],
+  providers: [provideAnimations(), DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

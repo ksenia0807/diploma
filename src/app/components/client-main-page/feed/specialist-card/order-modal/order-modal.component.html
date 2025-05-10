@@ -1,0 +1,63 @@
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+  <div class="flex flex-column gap-8">
+  
+    <div class="flex flex-column gap-3">
+      <div class="flex flex-column gap-2">
+        <label for="service">Услуга</label>
+        <p-dropdown 
+        id="service" 
+        formControlName="service" 
+        [options]="services" optionLabel="name" 
+        placeholder="Выберите услугу">
+        </p-dropdown>
+      </div>
+  
+      <div class="flex flex-column gap-2">
+        <label for="date">Дата</label>
+        <p-calendar 
+        id="date" 
+        formControlName="date"  
+        appendTo="body" 
+        [minDate]="minDate"
+        dateFormat="dd.mm.yy" 
+        [showIcon]="true" >
+        </p-calendar>
+      </div>
+  
+      <div class="flex flex-column gap-2">
+        <label for="time">Время</label>
+        <p-dropdown 
+        id="time" 
+        formControlName="time" 
+        [options]="timeOptions" 
+        placeholder="Выберите время">
+        </p-dropdown>
+      </div>
+  
+      <div class="flex flex-column gap-2">
+        <label for="address">Адрес проведения работ</label>
+        <input 
+        id="address" 
+        type="text" 
+        pInputText 
+        formControlName="address" 
+        placeholder="Введите адрес" />
+      </div>
+    </div>
+  
+    <div class="flex flex-row gap-3">
+      <p-button 
+      label="Отмена" 
+      class="p-button-text" 
+      (click)="close()">
+      </p-button>
+      <p-button 
+      label="Отправить" 
+      type="submit" 
+      [disabled]="orderForm.invalid">
+      </p-button>
+    </div>
+
+  </div>
+</form>
+  

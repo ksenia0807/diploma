@@ -1,0 +1,46 @@
+<div class="profile justify-self-end">
+  <i class="pi pi-user"></i>
+</div>
+<div class="flex flex-row gap-7" *ngIf="specialist">
+    <p-galleria 
+    [value]="specialist.photos"
+    [showThumbnails]="true"
+    [circular]="true"
+    [numVisible]="6"
+    [showItemNavigators]="true"
+    [showIndicators]="true"
+    [containerStyle]="{ 'max-width': '600px', 'margin': '0 auto' }"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img [src]="item" alt="Фото специалиста" style="width: 100%; height: 400px; object-fit: cover;" />
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        <img [src]="item" alt="Миниатюра" style="width: 80px; height: 60px; object-fit: cover;" />
+      </ng-template>
+    </p-galleria>
+    
+    <div>
+      <h1>{{ specialist.title }}</h1>
+      <h2>Рейтинг специалиста {{ specialist.rating}}</h2>
+      <p>{{ specialist.fullDescription }}</p>
+  
+      <div class="flex align-items-center gap-1">
+        <i class="pi pi-map-marker"></i>
+        <h3>Область работы: <span class="p">{{ specialist.location }}</span></h3>
+      </div>
+  
+      <div class="mb-6">
+        <h2>Цены на услуги</h2>
+        <ul class="flex flex-column gap-3">
+          <li *ngFor="let service of specialist.services">
+            {{ service.name }} - <strong>{{ service.price | number }} ₽</strong>
+          </li>
+        </ul>
+      </div>
+
+      <p-button label="Создать заявку" icon="pi pi-plus" (onClick)="showDialog()"></p-button>
+    </div>
+</div>
+  
+  
+  

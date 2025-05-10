@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { Router } from '@angular/router';
+import { Specialist, SpecialistService } from 'src/app/services/specialist.service';
 
 @Component({
   selector: 'app-specialist-card',
@@ -8,12 +11,30 @@ import { ButtonModule } from 'primeng/button';
   imports: [
     CommonModule,
     ButtonModule,
-  ],
+    DialogModule,
+],
   templateUrl: './specialist-card.component.html',
   styleUrl: './specialist-card.component.scss'
 })
 export class SpecialistCardComponent {
 
-  public readonly rating = [4.7, 5, 4.9, 3.8]
+  specialists: Specialist[] = [];
+
+  constructor(
+    private router: Router,
+    private specialistService: SpecialistService
+  ) {
+    this.loadSpecialists();
+  }
+
+  loadSpecialists() {
+    this.specialistService.getSpecialists().subscribe(data => {
+      this.specialists = data;
+    });
+  }
+
+  openCard(specialist: Specialist) {
+    this.router.navigate(['/specialist', specialist.id]);
+  }
 
 }
