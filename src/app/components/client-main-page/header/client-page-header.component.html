@@ -11,8 +11,7 @@
             </p-dropdown>
         </div>
 
-        <div 
-        *ngFor="let user of clients"
+        <div *ngIf="user"
         (click)="openProfile(user)" class="profile">
             <i class="pi pi-user"></i>
         </div>

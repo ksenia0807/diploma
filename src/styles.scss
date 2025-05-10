@@ -29,6 +29,7 @@ body {
     width: 64px;
     height: 64px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .feed {
@@ -89,6 +90,6 @@ body {
 }
 
 .p-inputtext:hover {
-  box-shadow:  0 0 0 0.2rem var(--shadow) !important;
+  box-shadow: var(--shadow) !important;
   border-color: var(--shadow) !important;
 }

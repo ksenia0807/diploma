@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from "primeng/floatlabel";
@@ -32,9 +32,18 @@ interface CityFilter {
   templateUrl: './client-page-header.component.html',
   styleUrl: './client-page-header.component.scss'
 })
-export class ClientPageHeaderComponent {
+export class ClientPageHeaderComponent implements OnInit{
 
+  user?: User;
   clients: User[] = [];
+
+  ngOnInit() {
+    this.clientProfileService.getUsers().subscribe(users => {
+      if (users.length > 0) {
+        this.user = users[0];  
+      }
+    });
+  }
 
   public readonly services: Service[] = [
     { name: 'Уборка помещений' },
@@ -114,7 +123,7 @@ export class ClientPageHeaderComponent {
 
   constructor(
     private router: Router,
-    private clientProfileService: ClientProfileService
+    private clientProfileService: ClientProfileService,
   ) {
       this.loadUsers();
    }
