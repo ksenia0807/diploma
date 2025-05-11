@@ -64,6 +64,7 @@ export class OrderModalComponent implements OnInit {
   onHide() {
     this.visibleChange.emit(false);
     this.orderForm.reset();
+    this._dialogRef.close();
   }
 
   onSubmit() {
@@ -71,5 +72,10 @@ export class OrderModalComponent implements OnInit {
       this.submit.emit(this.orderForm.value);
       this.onHide();
     }
+  }
+
+  public onOrderSubmit(orderData: any) {
+    console.log('Получена заявка:', orderData);
+    // Здесь можно отправить данные на сервер
   }
 }

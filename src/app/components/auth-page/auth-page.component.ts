@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,8 +27,16 @@ import { ButtonModule } from 'primeng/button';
 })
 export class AuthPageComponent {
 
-  public readonly login: string | undefined;
+  public username = '';
+  public password = '';
 
-  public readonly password: string | undefined;
+  constructor(private auth: AuthService, private router: Router) {}
+
+  public onSubmit() {
+    this.auth.login(this.username, this.password).subscribe({
+      next: () => this.router.navigate(['/profile']),
+      error: () => alert('Ошибка входа')
+    });
+  }
   
 }

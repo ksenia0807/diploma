@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from "primeng/floatlabel";
 import { DialogModule } from 'primeng/dialog';
 import { SliderModule } from 'primeng/slider';
 import { ButtonModule } from 'primeng/button';
+import { ClientProfileService, User } from 'src/app/services/client-profile.service';
+import { Router } from '@angular/router';
 
 interface Service {
   name: string;
@@ -30,7 +32,18 @@ interface CityFilter {
   templateUrl: './client-page-header.component.html',
   styleUrl: './client-page-header.component.scss'
 })
-export class ClientPageHeaderComponent {
+export class ClientPageHeaderComponent implements OnInit{
+
+  user?: User;
+  clients: User[] = [];
+
+  ngOnInit() {
+    this.clientProfileService.getUsers().subscribe(users => {
+      if (users.length > 0) {
+        this.user = users[0];  
+      }
+    });
+  }
 
   public readonly services: Service[] = [
     { name: 'Уборка помещений' },
@@ -106,5 +119,22 @@ export class ClientPageHeaderComponent {
 
     const found = this.priceOptions.find(opt => opt.value === this.priceRange);
     return found ? found.label : this.priceRange;
+  }
+
+  constructor(
+    private router: Router,
+    private clientProfileService: ClientProfileService,
+  ) {
+      this.loadUsers();
+   }
+  
+  public loadUsers() {
+    this.clientProfileService.getUsers().subscribe(data => {
+      this.clients = data;
+    });
+  }
+
+  public openProfile(user: User) {
+    this.router.navigate(['/user', user.id]);
   }
 }

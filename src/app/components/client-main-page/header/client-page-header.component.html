@@ -11,7 +11,8 @@
             </p-dropdown>
         </div>
 
-        <div class="profile">
+        <div *ngIf="user"
+        (click)="openProfile(user)" class="profile">
             <i class="pi pi-user"></i>
         </div>
     </div>

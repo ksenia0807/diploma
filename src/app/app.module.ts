@@ -8,6 +8,10 @@ import { SpecialistMainPageComponent } from "./components/specialist-main-page/s
 import { AuthPageComponent } from "./components/auth-page/auth-page.component";
 import { DialogService } from 'primeng/dynamicdialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApiPrefixInterceptor } from './interceptors/api-prefix.interceptor';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -21,8 +25,14 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     SpecialistMainPageComponent,
     AuthPageComponent,
     DynamicDialogModule,
+    HttpClientModule
 ],
-  providers: [provideAnimations(), DialogService],
+  providers: [
+    provideAnimations(), 
+    DialogService,
+    { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

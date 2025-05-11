@@ -21,7 +21,7 @@ export class OrderSharedService {
     this.selectedDateSubject.next(date);
   }
 
-  public readonly order: Order = {
+  public readonly specialistOrders: Order = {
     title: 'Уборка однокомнатной квартиры',
     jobDescription: 'Генеральная уборка квартиры площадью 40 кв.м.',
     address: 'ул. Ленина, д. 10',
@@ -30,7 +30,7 @@ export class OrderSharedService {
     status: 'new'
   };
 
-  public getOrderDescription(order: Order = this.order): string {
+  public getOrderDescription(order: Order = this.specialistOrders): string {
     return `${order.jobDescription} Адрес: ${order.address}. Дата: ${order.date} Время: ${order.time}.`;
   }
 
