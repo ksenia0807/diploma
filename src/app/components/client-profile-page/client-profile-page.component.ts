@@ -39,9 +39,7 @@ export class ClientProfilePageComponent implements OnInit {
       },
       });
 
-      this.orderService.getOrders().subscribe(data => {
-      this.orders = data;
-    });
+      this.orderService.getOrders().subscribe(data => this.orders = data);
     }
 
 
