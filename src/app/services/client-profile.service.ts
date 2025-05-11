@@ -19,14 +19,14 @@ export class ClientProfileService {
   private readonly clients: User[] = [
     {
         id: 11,
-        avatar: ['assets/man.jpg'],
+        avatar: ['assets/avatar1.jpg'],
         name: 'Ксения',
         surname: 'Кадырова',
         patronymic: 'Дамировна',
         location: 'г. Москва'
     },
     {
-      id: 11,
+      id: 22,
         avatar: ['assets/car2.jpg'],
         name: 'Алексей',
         surname: 'Власов',

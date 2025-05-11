@@ -1,1 +1,47 @@
-<p *ngIf="client">{{ client.name}}</p>
+<div *ngIf="client" class="surface-card p-4 shadow-2 border-round-xl max-w-30rem mx-auto mt-5">
+  <!-- Профиль пользователя -->
+  <div class="flex align-items-center gap-4 mb-4">
+    <img [src]="client.avatar[0]" alt="Аватар" class="border-circle" style="width: 96px; height: 96px; object-fit: cover;">
+    <div>
+      <div class="text-2xl font-bold mb-1">{{ client.surname }} {{ client.name }} {{ client.patronymic }}</div>
+      <div class="flex align-items-center text-color-secondary">
+        <i class="pi pi-map-marker text-primary mr-2"></i>
+        <span>{{ client.location }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- История заказов -->
+  <div>
+    <h3 class="mb-3">История заказов</h3>
+    <p-table [value]="orders" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Дата</th>
+          <th>Услуга</th>
+          <th>Цена</th>
+          <th>Статус</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-order>
+        <tr>
+          <td>{{ order.date | date:'dd.MM.yyyy' }}</td>
+          <td>{{ order.title }}</td>
+          <td>{{ order.price | number }} ₽</td>
+          <td>
+            <span 
+              class="font-bold"
+              [ngClass]="{
+                'text-green-600': order.status === 'Выполнен',
+                'text-orange-600': order.status === 'В процессе',
+                'text-red-600': order.status === 'Отменен'
+              }">
+              {{ order.status }}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
