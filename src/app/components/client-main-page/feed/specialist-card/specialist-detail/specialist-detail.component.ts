@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GalleriaModule } from 'primeng/galleria';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Specialist, SpecialistService } from 'src/app/services/specialist.service';
 import { ButtonModule } from 'primeng/button';
 import { OrderModalService } from 'src/app/services/order-modal.service';
+import { ClientProfileService } from 'src/app/services/client-profile.service';
 
 
 @Component({
@@ -24,7 +25,9 @@ export class SpecialistDetailComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private specialistService: SpecialistService,
-  ) {}
+    private clientProfileService: ClientProfileService,
+  ) {
+  }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
