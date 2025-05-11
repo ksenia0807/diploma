@@ -7,13 +7,13 @@ import { AuthPageComponent } from './components/auth-page/auth-page.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
-  { path: 'login', component: AuthPageComponent },
-  { path: 'profile', component: ClientProfilePageComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: 'profile', pathMatch: 'full' }
-  // { path: '', component: ClientMainPageComponent },
-  // { path: 'user/:id', component: ClientProfilePageComponent },
-  // { path: 'specialist/:id', component: SpecialistDetailComponent },
-  // { path: '**', redirectTo: ''}
+  // { path: 'login', component: AuthPageComponent },
+  // { path: 'profile', component: ClientProfilePageComponent, canActivate: [AuthGuard] },
+  // { path: '', redirectTo: 'profile', pathMatch: 'full' }
+  { path: '', component: ClientMainPageComponent },
+  { path: 'user/:id', component: ClientProfilePageComponent },
+  { path: 'specialist/:id', component: SpecialistDetailComponent },
+  { path: '**', redirectTo: ''}
 ];
 
 @NgModule({
