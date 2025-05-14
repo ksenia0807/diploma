@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export interface User {
+export interface Client {
   id: number;
   name: string;
   surname: string;
@@ -16,7 +16,7 @@ export interface User {
 })
 export class ClientProfileService {
 
-  private readonly users: User[] = [
+  private readonly clients: Client[] = [
     {
         id: 11,
         avatar: ['assets/avatar1.jpg'],
@@ -35,11 +35,11 @@ export class ClientProfileService {
     },
   ];
 
-  public getUsers(): Observable<User[]> {
-    return of(this.users).pipe();
+  public getUsers(): Observable<Client[]> {
+    return of(this.clients).pipe();
   }
 
-  public getUserById(id: number): Observable<User | undefined> {
+  public getUserById(id: number): Observable<Client | undefined> {
     return this.getUsers().pipe(
       map(users => users.find(u => u.id === id))
     );

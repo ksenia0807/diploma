@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClientProfileService, User } from 'src/app/services/client-profile.service';
 import { ActivatedRoute } from '@angular/router';
+import { Specialist, SpecialistProfileService } from 'src/app/services/specialist-profile.service';
 
 @Component({
   selector: 'app-specialist-profile-page',
@@ -12,16 +12,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SpecialistProfilePageComponent implements OnInit{
 
-  specialist?: User;
+  specialist?: Specialist;
 
   constructor(
     private route: ActivatedRoute,
-    private clientProfileService: ClientProfileService,
+    private specialistProfileService: SpecialistProfileService,
   ) {}
     
   ngOnInit() {
     const userId = Number(this.route.snapshot.paramMap.get('id'));
-    this.clientProfileService.getUserById(userId).subscribe({
+    this.specialistProfileService.getUserById(userId).subscribe({
     next: (spec) => {
       this.specialist = spec;
     },
