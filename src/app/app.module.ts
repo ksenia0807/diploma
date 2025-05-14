@@ -25,7 +25,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     SpecialistMainPageComponent,
     AuthPageComponent,
     DynamicDialogModule,
-    HttpClientModule
+    HttpClientModule,
 ],
   providers: [
     provideAnimations(), 

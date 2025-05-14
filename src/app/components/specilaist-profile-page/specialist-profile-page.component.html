@@ -1,7 +1,7 @@
 <div *ngIf="specialist" class="surface-card p-4 shadow-2 border-round-xl max-w-30rem mx-auto mt-5">
   <!-- Профиль пользователя -->
   <div class="flex align-items-center gap-4 mb-4">
-    <img [src]="specialist.avatar[0]" alt="Аватар" class="border-circle" style="width: 96px; height: 96px; object-fit: cover;">
+    <p-avatar [image]="specialist.avatar[0]" size="xlarge" shape="circle"></p-avatar>
     <div>
       <div class="text-2xl font-bold mb-1">{{ specialist.surname }} {{ specialist.name }} {{ specialist.patronymic }}</div>
       <div class="flex align-items-center text-color-secondary">
@@ -11,5 +11,193 @@
     </div>
   </div>
 
+  <!-- Редактирование профиля -->
+  <div *ngIf="editMode; else viewMode">
+    <form [formGroup]="specialistForm">
+      <div class="grid p-fluid">
+        <div class="col-12 md:col-4">
+          <div class="field">
+            <label for="surname">Фамилия</label>
+            <input pInputText id="surname" formControlName="surname" />
+          </div>
+        </div>
+        <div class="col-12 md:col-4">
+          <div class="field">
+            <label for="name">Имя</label>
+            <input pInputText id="name" formControlName="name" />
+          </div>
+        </div>
+        <div class="col-12 md:col-4">
+          <div class="field">
+            <label for="patronymic">Отчество</label>
+            <input pInputText id="patronymic" formControlName="patronymic" />
+          </div>
+        </div>
+        <div class="col-12 md:col-6">
+          <div class="field">
+            <label for="email">Email</label>
+            <input pInputText id="email" formControlName="email" />
+          </div>
+        </div>
+        <div class="col-12 md:col-6">
+          <div class="field">
+            <label for="phone">Телефон</label>
+            <input pInputText id="phone" formControlName="phone" />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="field">
+            <label for="location">Местоположение</label>
+            <input pInputText id="location" formControlName="location" />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="field">
+            <label for="about">О себе</label>
+            <textarea pInputTextarea id="about" formControlName="about" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="flex justify-content-end gap-2 mt-3">
+      <p-button label="Отмена" icon="pi pi-times" (click)="toggleEditMode()"></p-button>
+      <p-button label="Сохранить" icon="pi pi-check" (click)="saveProfile()"></p-button>
+    </div>
+  </div>
+
+  <ng-template #viewMode>
+    <div class="mb-4">
+      <div class="text-lg font-semibold mb-2">Контактная информация</div>
+      <div class="grid">
+        <div class="col-12 md:col-6">
+          <div class="field">
+            <label class="font-bold">Email:</label>
+            <div>{{ specialist.email }}</div>
+          </div>
+        </div>
+        <div class="col-12 md:col-6">
+          <div class="field">
+            <label class="font-bold">Телефон:</label>
+            <div>{{ specialist.phone }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4" *ngIf="specialist.about">
+      <div class="text-lg font-semibold mb-2">О себе</div>
+      <p>{{ specialist.about }}</p>
+    </div>
+
+    <div class="flex justify-content-end">
+      <p-button label="Редактировать профиль" icon="pi pi-user-edit" (click)="toggleEditMode()"></p-button>
+    </div>
+  </ng-template>
+
+  <!-- Услуги -->
+  <div class="mt-5">
+    <div class="flex justify-content-between align-items-center mb-3">
+      <div class="text-xl font-bold">Мои услуги</div>
+      <p-button label="Добавить услугу" icon="pi pi-plus" (click)="showServiceDialog()"></p-button>
+    </div>
+
+    <p-card *ngFor="let service of specialist.services" class="mb-3">
+      <div class="flex flex-column md:flex-row gap-3">
+        <div class="w-full md:w-3">
+            <p-galleria [value]="service.photos" [responsiveOptions]="responsiveOptions" [numVisible]="3"
+                [containerStyle]="{'max-width': '300px'}" [circular]="true" [showItemNavigators]="true">
+                <ng-template pTemplate="item" let-item>
+                <img [src]="item" style="width: 100%; height: 150px; object-fit: cover;" />
+                </ng-template>
+                <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item" style="width: 50px; height: 50px; object-fit: cover;" />
+                </div>
+                </ng-template>
+            </p-galleria>
+        </div>
+        <div class="w-full md:w-9">
+          <div class="text-xl font-bold mb-2">{{ service.title }}</div>
+          <div class="mb-3">{{ service.description }}</div>
+          <div class="mb-3">
+            <span class="font-bold">Местоположение: </span>
+            <span>{{ service.location }}</span>
+          </div>
+          <div class="font-bold mb-2">Работы и цены:</div>
+          <ul>
+            <li *ngFor="let work of service.works">
+              {{ work.name }} - {{ work.price | currency:'RUB':'symbol':'1.0-0' }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </p-card>
+
+    <p-card *ngIf="specialist.services.length === 0" class="text-center">
+      У вас пока нет услуг. Нажмите "Добавить услугу", чтобы создать первую.
+    </p-card>
+  </div>
 </div>
+
+<!-- Диалог добавления услуги -->
+<p-dialog [(visible)]="displayServiceDialog" [style]="{width: '50vw'}" header="Добавление услуги">
+  <form [formGroup]="serviceForm">
+    <div class="grid p-fluid">
+      <div class="col-12">
+        <div class="field">
+          <label for="title">Название услуги</label>
+          <input pInputText id="title" formControlName="title" />
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="field">
+          <label for="description">Краткое описание</label>
+          <textarea pInputTextarea id="description" formControlName="description" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="field">
+          <label for="location">Область работы (город)</label>
+          <input pInputText id="location" formControlName="location" />
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="field">
+          <label>Фотографии услуги</label>
+          <p-fileUpload name="demo[]" [multiple]="true" accept="image/*" maxFileSize="1000000"
+            (onUpload)="onUpload($event)" [auto]="true" chooseLabel="Выбрать" uploadLabel="Загрузить"
+            cancelLabel="Отмена">
+            <ng-template pTemplate="content">
+              <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+              </ul>
+            </ng-template>
+          </p-fileUpload>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="font-bold mb-2">Работы и цены:</div>
+        <div class="grid mb-2" *ngFor="let work of works; let i = index">
+          <div class="col-12 md:col-6">
+            <input pInputText [(ngModel)]="work.name" [ngModelOptions]="{standalone: true}" placeholder="Название работы" />
+          </div>
+          <div class="col-12 md:col-5">
+            <p-inputNumber [(ngModel)]="work.price" [ngModelOptions]="{standalone: true}" mode="currency" currency="RUB" locale="ru-RU" placeholder="Цена"></p-inputNumber>
+          </div>
+          <div class="col-12 md:col-1">
+            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-danger" (click)="removeWork(i)"></button>
+          </div>
+        </div>
+        <p-button label="Добавить работу" icon="pi pi-plus" (click)="addWork()" class="p-button-outlined"></p-button>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="Отмена" icon="pi pi-times" (click)="displayServiceDialog = false" class="p-button-text"></p-button>
+    <p-button label="Сохранить" icon="pi pi-check" (click)="saveService()"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>
 
