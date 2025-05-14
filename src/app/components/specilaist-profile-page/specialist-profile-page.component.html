@@ -172,13 +172,6 @@
             (onSelect)="onUpload($event)" 
             [auto]="true" 
             chooseLabel="Выбрать">
-            <ng-template pTemplate="content">
-                <div *ngIf="uploadedFiles.length" class="flex flex-wrap gap-2 mt-3">
-                    <div *ngFor="let file of uploadedFiles" class="relative">
-                        <img [src]="file" class="w-8rem h-8rem border-round" style="object-fit: cover;">
-                    </div>
-                </div>
-            </ng-template>
           </p-fileUpload>
         </div>
       </div>
