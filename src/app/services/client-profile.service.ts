@@ -16,7 +16,7 @@ export interface User {
 })
 export class ClientProfileService {
 
-  private readonly clients: User[] = [
+  private readonly users: User[] = [
     {
         id: 11,
         avatar: ['assets/avatar1.jpg'],
@@ -36,12 +36,12 @@ export class ClientProfileService {
   ];
 
   public getUsers(): Observable<User[]> {
-    return of(this.clients).pipe();
+    return of(this.users).pipe();
   }
 
   public getUserById(id: number): Observable<User | undefined> {
     return this.getUsers().pipe(
-      map(clients => clients.find(c => c.id === id))
+      map(users => users.find(u => u.id === id))
     );
   }
 }

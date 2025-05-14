@@ -135,6 +135,6 @@ export class ClientPageHeaderComponent implements OnInit{
   }
 
   public openProfile(user: User) {
-    this.router.navigate(['/user', user.id]);
+    this.router.navigate(['/client', user.id]);
   }
 }

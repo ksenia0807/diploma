@@ -3,8 +3,9 @@
         <h1>Мои заказы</h1>
         <p-tabMenu [model]="orderStatus" />
     </div>
-    <div class="profile">
-        <i class="pi pi-user"></i>
+    <div *ngIf="user"
+        (click)="openProfile(user)" class="profile">
+            <i class="pi pi-user"></i>
     </div>
 </div>
 
