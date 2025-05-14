@@ -50,21 +50,6 @@ export class SpecialistProfilePageComponent implements OnInit{
   uploadedFiles: any[] = [];
   works: Work[] = [{ name: '', price: 0 }];
 
-  responsiveOptions: any[] = [
-  {
-    breakpoint: '1024px',
-    numVisible: 3
-  },
-  {
-    breakpoint: '768px',
-    numVisible: 2
-  },
-  {
-    breakpoint: '560px',
-    numVisible: 1
-  }
-];
-
   constructor(
     private route: ActivatedRoute,
     private specialistProfileService: SpecialistProfileService,
@@ -97,14 +82,14 @@ export class SpecialistProfilePageComponent implements OnInit{
     });
   }
 
-  toggleEditMode(): void {
+  toggleEditMode() {
     this.editMode = !this.editMode;
     if (!this.editMode && this.specialist) {
       this.specialistForm.patchValue(this.specialist);
     }
   }
 
-  saveProfile(): void {
+  saveProfile() {
     if (this.specialistForm.valid) {
       this.specialist = { ...this.specialist, ...this.specialistForm.value };
       this.editMode = false;
@@ -116,47 +101,49 @@ export class SpecialistProfilePageComponent implements OnInit{
     }
   }
 
-  showServiceDialog(): void {
+  showServiceDialog() {
     this.displayServiceDialog = true;
     this.serviceForm.reset();
     this.works = [{ name: '', price: 0 }];
     this.uploadedFiles = [];
   }
 
-  addWork(): void {
+  addWork() {
     this.works.push({ name: '', price: 0 });
   }
 
-  removeWork(index: number): void {
+  removeWork(index: number) {
     this.works.splice(index, 1);
   }
 
-  onUpload(event: any): void {
+  onUpload(event: any) {
+    this.uploadedFiles = []; 
+    
     for (const file of event.files) {
-      this.uploadedFiles.push(file);
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.uploadedFiles.push(e.target.result);
+      };
+      reader.readAsDataURL(file);
     }
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Файл загружен',
-      detail: ''
-    });
   }
 
-  saveService(): void {
+  saveService() {
     if (this.serviceForm.valid && this.works.every(work => work.name && work.price > 0)) {
-      const newService: Service = {
-        ...this.serviceForm.value,
-        works: this.works,
-        photos: this.uploadedFiles.map(file => file.objectURL)
-      };
+    const newService: Service = {
+      ...this.serviceForm.value,
+      works: this.works,
+      photos: [...this.uploadedFiles] 
+    };
 
-      this.specialist?.services?.push(newService);
-      this.displayServiceDialog = false;
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Успешно',
-        detail: 'Услуга добавлена'
-      });
+    this.specialist?.services?.push(newService);
+    this.displayServiceDialog = false;
+    this.uploadedFiles = []; 
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Успешно',
+      detail: 'Услуга добавлена'
+    });
     } else {
       this.messageService.add({
         severity: 'error',
