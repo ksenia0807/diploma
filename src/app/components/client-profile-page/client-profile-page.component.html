@@ -1,4 +1,4 @@
-<div *ngIf="client" class="surface-card p-4 shadow-2 border-round-xl max-w-30rem mx-auto mt-5">
+<div *ngIf="client" class="surface-card p-4 shadow-2 border-round-xl w-6 mx-auto mt-5">
   <!-- Профиль пользователя -->
   <div class="flex align-items-center gap-4 mb-4">
     <img [src]="client.avatar[0]" alt="Аватар" class="border-circle" style="width: 96px; height: 96px; object-fit: cover;">
@@ -14,7 +14,11 @@
   <!-- История заказов -->
   <div>
     <h3 class="mb-3">История заказов</h3>
-    <p-table [value]="orders" responsiveLayout="scroll">
+    <p-table 
+      [value]="orders" 
+      responsiveLayout="scroll"
+      (onRowSelect)="onRowSelect($event.data)"
+      selectionMode="single">
       <ng-template pTemplate="header">
         <tr>
           <th>Дата</th>
@@ -24,19 +28,19 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-order>
-        <tr>
-          <td>{{ order.date | date:'dd.MM.yyyy' }}</td>
+        <tr [pSelectableRow]="order" [class.cursor-pointer]="order.status === 'completed'">
+          <td>{{ order.date }}</td>
           <td>{{ order.title }}</td>
           <td>{{ order.price | number }} ₽</td>
           <td>
             <span 
               class="font-bold"
               [ngClass]="{
-                'text-green-600': order.status === 'Выполнен',
-                'text-orange-600': order.status === 'В процессе',
-                'text-red-600': order.status === 'Отменен'
+                'completed': order.status === 'completed',
+                'inprogress': order.status === 'inprogress',
+                'canceled': order.status === 'canceled'
               }">
-              {{ order.status }}
+              {{ getStatusLabel(order.status) }}
             </span>
           </td>
         </tr>
@@ -45,3 +49,30 @@
   </div>
 </div>
 
+<!-- Диалог оставления отзыва -->
+<p-dialog [modal]="true" [(visible)]="displayReviewDialog" header="Оставить отзыв" [style]="{width: '50vw'}">
+  <div class="flex flex-column gap-3">
+    <div>
+      <label class="block mb-2">Оценка:</label>
+      <p-rating [(ngModel)]="newReview.rating" [cancel]="false"></p-rating>
+    </div>
+    
+    <div>
+      <label class="block mb-2">Комментарий:</label>
+      <textarea 
+        pInputTextarea 
+        [(ngModel)]="newReview.comment" 
+        rows="5" 
+        style="width: 100%"></textarea>
+    </div>
+  </div>
+  
+  <ng-template pTemplate="footer">
+    <p-button label="Отмена" icon="pi pi-times" (click)="displayReviewDialog = false"></p-button>
+    <p-button 
+      label="Отправить" 
+      icon="pi pi-check" 
+      (click)="submitReview()"
+      [disabled]="newReview.rating === 0 || !newReview.comment"></p-button>
+  </ng-template>
+</p-dialog>

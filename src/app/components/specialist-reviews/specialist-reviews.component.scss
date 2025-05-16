@@ -1,0 +1,19 @@
+:host {
+    ::ng-deep {
+        .p-card {
+            .text-yellow-500 {
+            color: #FBBF24;
+            }
+            
+            .text-300 {
+            color: #D1D5DB;
+            }
+        }
+
+        .pi.pi-star-fill,
+        .pi-star {
+            color: var(--star) !important; 
+        }
+    }
+}
+   

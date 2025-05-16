@@ -65,13 +65,6 @@ export class OrdersComponent {
 
   public onDateSelect(date: Date) {
     this.selectedDate = date;
-    
-    // const isSameDate =
-    //   date.getDate() === this.orderDate.getDate() &&
-    //   date.getMonth() === this.orderDate.getMonth() &&
-    //   date.getFullYear() === this.orderDate.getFullYear();
-
-    // this.orderVisible = isSameDate;
   }
   
   public acceptOrder(order: any) {
@@ -80,7 +73,14 @@ export class OrdersComponent {
   }
   
   public declineOrder(order: any) {
-    order.visible = false;
+    this.spesialistOrders = this.spesialistOrders.filter(o => o.id !== order.id);
+    
+    if (this.spesialistOrder && this.spesialistOrder.id === order.id) {
+      this.spesialistOrder = undefined;
+    }
+    
+    // Здесь можно добавить вызов API для фактического удаления на сервере
+    // this.orderSharedService.deleteOrder(order.id).subscribe();
   }
   
   public completeOrder(order: any) {
