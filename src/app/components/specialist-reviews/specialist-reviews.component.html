@@ -14,7 +14,7 @@
         <div class="flex">
           <i *ngFor="let star of [1,2,3,4,5]" 
               class="pi" 
-              [ngClass]="star <= review.rating ? 'pi-star-fill text-yellow-500' : 'pi-star text-300'"></i>
+              [ngClass]="star <= review.rating ? 'pi-star-fill' : 'pi-star'"></i>
         </div>
       </div>
       <p>{{ review.comment }}</p>

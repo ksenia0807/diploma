@@ -9,6 +9,11 @@
             color: #D1D5DB;
             }
         }
+
+        .pi.pi-star-fill,
+        .pi-star {
+            color: var(--star) !important; 
+        }
     }
 }
    

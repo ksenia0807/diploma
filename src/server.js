@@ -158,17 +158,47 @@ app.get('/api/specialistsOrders', (req, res) => {
 });
 
 var specialistsProfiles = [
+  // {
+  //   id: 22,
+  //   avatar: ['assets/car2.jpg'],
+  //   name: 'Иван',
+  //   surname: 'Иванов',
+  //   patronymic: 'Иванович',
+  //   email: 'ivanov@example.com',
+  //   phone: '+7 (999) 123-45-67',
+  //   location: 'Москва',
+  //   about: 'Профессиональный специалист с 10-летним опытом работы.',
+  //   services: []
+  // },
   {
-    id: 22,
+    id: 11,
     avatar: ['assets/car2.jpg'],
-    name: 'Иван',
-    surname: 'Иванов',
-    patronymic: 'Иванович',
-    email: 'ivanov@example.com',
+    name: 'Алексей',
+    surname: 'Власов',
+    patronymic: 'Игоревич',
+    email: 'jieha@example.com',
     phone: '+7 (999) 123-45-67',
     location: 'Москва',
     about: 'Профессиональный специалист с 10-летним опытом работы.',
-    services: []
+    services: [
+      {
+        id: 1,
+        title: 'Сборка мебели',
+        description: 'Сборка мебели любых производителей',
+        works: [
+          {
+            name: 'Сборка кухни',
+            price: 20000,
+          },
+          {
+            name: 'Сборка шкафа',
+            price: 3000,
+          }
+        ],
+        location: 'Москва',
+        photos: ['assets/car1.jpg', 'assets/car3.jpg', 'assets/car2.jpg'],
+      }
+    ]
   }
 ];
 
@@ -176,3 +206,40 @@ app.get('/api/specialistsProfiles', (req, res) => {
   res.json(specialistsProfiles);
 });
 
+const reviews = [
+  {
+    id: 1,
+    specialistId: 22, 
+    authorName: 'Алексей Петров',
+    rating: 5,
+    comment: 'Отличный специалист! Сделал всё качественно и в срок. Рекомендую!',
+    date: new Date('2023-05-15')
+  },
+  {
+    id: 2,
+    specialistId: 22,
+    authorName: 'Мария Сидорова',
+    rating: 4,
+    comment: 'Хорошая работа, но были небольшие задержки. В целом довольна.',
+    date: new Date('2023-06-20')
+  },
+  {
+    id: 3,
+    specialistId: 22,
+    authorName: 'Дмитрий Николаев',
+    rating: 5,
+    comment: 'Лучший специалист в своём деле. Буду обращаться ещё!',
+    date: new Date('2023-07-10')
+  }
+];
+
+app.get('/api/reviews', (req, res) => {
+  const specialistId = parseInt(req.query.specialistId);
+  
+  if (!specialistId) {
+    return res.status(400).json({ error: 'Не указан ID специалиста' });
+  }
+
+  const specialistReviews = reviews.filter(r => r.specialistId === specialistId);
+  res.json(specialistReviews);
+});
