@@ -157,3 +157,22 @@ app.get('/api/specialistsOrders', (req, res) => {
   res.json(specialistOrders);
 });
 
+var specialistsProfiles = [
+  {
+    id: 22,
+    avatar: ['assets/car2.jpg'],
+    name: 'Иван',
+    surname: 'Иванов',
+    patronymic: 'Иванович',
+    email: 'ivanov@example.com',
+    phone: '+7 (999) 123-45-67',
+    location: 'Москва',
+    about: 'Профессиональный специалист с 10-летним опытом работы.',
+    services: []
+  }
+];
+
+app.get('/api/specialistsProfiles', (req, res) => {
+  res.json(specialistsProfiles);
+});
+

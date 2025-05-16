@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Specialist, SpecialistProfileService } from 'src/app/services/specialist-profile.service';
 
 @Component({
@@ -37,11 +37,14 @@ export class SpecialistPageHeaderComponent implements OnInit {
         },
     ]
 
-    this.specialistProfileService.getUsers().subscribe(users => {
-    if (users.length > 0) {
-      this.user = users[0];  
-    }
+    const specialistId = Number(this.route.snapshot.paramMap.get('id'));
+    this.specialistProfileService.getSpecialistProfileById(specialistId).subscribe({
+    next: (o) => {
+      this.user = o;
+    },
     });
+
+    this.specialistProfileService.getSpecialistProfiles().subscribe(data => this.specialists = data);
   }
 
   public changeStatus(status: string) {
@@ -51,16 +54,9 @@ export class SpecialistPageHeaderComponent implements OnInit {
 
   constructor(
       private router: Router,
+      private route: ActivatedRoute,
       private specialistProfileService: SpecialistProfileService,
-  ) {
-    this.loadUsers();
-  }
-    
-  public loadUsers() {
-    this.specialistProfileService.getUsers().subscribe(data => {
-      this.specialists = data;
-    });
-  }
+  ) {}
   
   public openProfile(user: Specialist) {
     this.router.navigate(['/specialist-profile', user.id]);

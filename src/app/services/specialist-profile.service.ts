@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -34,28 +35,15 @@ export interface Work {
 })
 export class SpecialistProfileService {
 
-  private readonly specialists: Specialist[] = [
-    {
-        id: 22,
-        avatar: ['assets/car2.jpg'],
-        name: 'Иван',
-        surname: 'Иванов',
-        patronymic: 'Иванович',
-        email: 'ivanov@example.com',
-        phone: '+7 (999) 123-45-67',
-        location: 'Москва',
-        about: 'Профессиональный специалист с 10-летним опытом работы.',
-        services: []
-    },
-  ];
+  constructor(private http: HttpClient) {}
 
-  public getUsers(): Observable<Specialist[]> {
-    return of(this.specialists).pipe();
+  public getSpecialistProfiles(): Observable<Specialist[]> {
+    return this.http.get<Specialist[]>('/api/specialistsProfiles');
   }
 
-  public getUserById(id: number): Observable<Specialist | undefined> {
-    return this.getUsers().pipe(
-      map(users => users.find(u => u.id === id))
+  public getSpecialistProfileById(id: number): Observable<Specialist | undefined> {
+    return this.getSpecialistProfiles().pipe(
+      map(specialistProfiles => specialistProfiles.find(sp => sp.id === id))
     );
   }
 }

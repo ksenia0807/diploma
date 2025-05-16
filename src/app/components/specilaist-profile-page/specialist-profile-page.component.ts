@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Specialist, SpecialistProfileService, Work, Service } from 'src/app/services/specialist-profile.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
@@ -52,6 +52,7 @@ export class SpecialistProfilePageComponent implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private specialistProfileService: SpecialistProfileService,
     private fb: FormBuilder,
     private messageService: MessageService
@@ -75,7 +76,7 @@ export class SpecialistProfilePageComponent implements OnInit{
     
   ngOnInit() {
     const userId = Number(this.route.snapshot.paramMap.get('id'));
-    this.specialistProfileService.getUserById(userId).subscribe({
+    this.specialistProfileService.getSpecialistProfileById(userId).subscribe({
     next: (spec) => {
       this.specialist = spec;
     },
@@ -151,6 +152,10 @@ export class SpecialistProfilePageComponent implements OnInit{
         detail: 'Заполните все обязательные поля'
       });
     }
+  }
+
+  public viewReviews() {
+    this.router.navigate(['/specialist-reviews', this.specialist?.id]);
   }
   
 }
