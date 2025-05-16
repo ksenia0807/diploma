@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Review {
-  id: number;
+  orderId: number;
   specialistId: number;
+  clientId: number;
   authorName: string;
   rating: number;
   comment: string;
@@ -19,5 +20,9 @@ export class ReviewService {
 
   getReviewsBySpecialist(specialistId: number): Observable<Review[]> {
     return this.http.get<Review[]>(`/api/reviews?specialistId=${specialistId}`);
+  }
+
+  createReview(review: Review): Observable<Review> {
+    return this.http.post<Review>('/api/reviews', review);
   }
 }

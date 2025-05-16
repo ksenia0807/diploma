@@ -1,1 +1,36 @@
+:host {
+    ::ng-deep {
+        .cursor-pointer {
+            cursor: pointer;
+        }
+  
+        .p-dialog {
+            .p-rating .p-rating-icon {
+            color: var(--star);
+            font-size: 1.5rem;
+            }
+    
+            textarea {
+                resize: vertical;
+                min-height: 100px;
+                padding: 16px;
+                font-weight: 400;
+                font-size: x-large;
+            }
+        }
+        
+    }
 
+    .completed {
+        color: var(--green-600)
+    }
+
+    .inprogress {
+        color: var(--orange-500)
+    }
+
+    .canceled {
+        color: var(--red-600)
+    }
+
+}
