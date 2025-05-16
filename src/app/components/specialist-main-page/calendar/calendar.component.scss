@@ -76,4 +76,15 @@
     }
   }
 
+  .calendar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .orders-panel {
+    width: 466px;
+    height: auto;
+  }
+
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, shareReplay } from 'rxjs';
 
 export type OrderStatus = 'new' | 'inprogress' | 'completed';
 
@@ -15,13 +15,17 @@ export interface Order {
 }
 
 @Injectable({ providedIn: 'root' })
-export class OrderSharedService {
+export class OrderSharedService{
   
   private selectedDateSubject = new BehaviorSubject<Date | null>(null);
   selectedDate$ = this.selectedDateSubject.asObservable();
-  specialistOrders: Order[] = [];
+  private specialistOrders$: Observable<Order[]>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.specialistOrders$ = this.getSpecialistOrders().pipe(
+      shareReplay(1) // Кэшируем результат
+    );
+  }
   
   public getSpecialistOrders(): Observable<Order[]> {
     return this.http.get<Order[]>('/api/specialistsOrders');
@@ -29,7 +33,7 @@ export class OrderSharedService {
 
   public getSpecialistOrderById(id: number): Observable<Order | undefined> {
     return this.getSpecialistOrders().pipe(
-      map(orders => orders.find(o => o.id === id))
+      map(specialistOrders => specialistOrders.find(so => so.id === id))
     );
   }
 
@@ -50,16 +54,17 @@ export class OrderSharedService {
     }
   }
 
-  getOrderByDate(date: Date): Order | null {
-    const foundOrder = this.specialistOrders.find(order => {
-      const [day, month, year] = order.date.split('.').map(Number);
-      return (
-        date.getDate() === day &&
-        date.getMonth() + 1 === month &&
-        date.getFullYear() === year
-      );
-    });
-    return foundOrder || null;
+  public getOrderByDate(date: Date): Observable<Order | undefined> {
+    return this.specialistOrders$.pipe(
+      map(orders => orders.find(order => {
+        const [day, month, year] = order.date.split('.').map(Number);
+        return (
+          date.getDate() === day &&
+          date.getMonth() + 1 === month &&
+          date.getFullYear() === year
+        );
+      }))
+    );
   }
 
 }
