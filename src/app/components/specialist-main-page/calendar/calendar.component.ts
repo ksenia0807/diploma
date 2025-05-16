@@ -22,33 +22,21 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 export class CalendarComponent {
 
   selectedDate: Date | null = null;
-  orderVisible = false;
-  order: Order;
+  currentOrder: Order | undefined; // Изменили на undefined
   description = '';
-  statusLabel = '';
+  orderVisible = false;
 
-  constructor(public orderSharedService: OrderSharedService) {
-    this.order = this.orderSharedService.specialistOrders;
-  }
-  
+  constructor(public orderSharedService: OrderSharedService) {}
+
   onDateSelect(date: Date) {
-    this.selectedDate = date;
-    this.orderVisible = this.isOrderDate(date);
-
-    if (this.orderVisible) {
-      this.description = this.orderSharedService.getOrderDescription(this.order);
-      this.statusLabel = this.orderSharedService.getStatusLabel(this.order.status);
-    }
+    this.orderSharedService.getOrderByDate(date).subscribe(order => {
+      this.currentOrder = order;
+      
+      if (this.currentOrder) {
+        this.description = this.orderSharedService.getOrderDescription(this.currentOrder);
+      } else {
+        this.description = '';
+      }
+    });
   }
-
-  isOrderDate(date: Date | null): boolean {
-    if (!date) return false;
-    const [day, month, year] = this.order.date.split('.').map(Number);
-    return (
-      date.getDate() === day &&
-      date.getMonth() + 1 === month &&
-      date.getFullYear() === year
-    );
-  }
-
 }

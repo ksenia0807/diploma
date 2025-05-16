@@ -123,3 +123,37 @@ app.get('/api/specialists', (req, res) => {
   res.json(specialists);
 });
 
+var specialistOrders = [
+    {
+      id: 1,
+      title: 'Уборка двухкомнатной квартиры',
+      jobDescription: 'Генеральная уборка квартиры площадью 40 кв.м.',
+      address: 'ул. Ленина, д. 10',
+      date: '05.05.2025',
+      time: '15:00',
+      status: 'new'
+    },
+    {
+      id: 2,
+      title: 'Ремонт ванной комнаты',
+      jobDescription: 'Замена сантехники и плитки',
+      address: 'ул. Гагарина, д. 5',
+      date: '06.05.2025',
+      time: '10:00',
+      status: 'inprogress'
+    },
+    {
+      id: 3,
+      title: 'Доставка продуктов',
+      jobDescription: 'Доставка продуктов из магазина',
+      address: 'ул. Пушкина, д. 15',
+      date: '04.05.2025',
+      time: '12:00',
+      status: 'completed'
+    }
+];
+
+app.get('/api/specialistsOrders', (req, res) => {
+  res.json(specialistOrders);
+});
+

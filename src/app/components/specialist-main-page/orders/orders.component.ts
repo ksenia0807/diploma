@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { Order, OrderSharedService } from 'src/app/services/order-shared.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -13,25 +15,42 @@ import { CardModule } from 'primeng/card';
 })
 export class OrdersComponent {
 
+  @Input() currentStatus: string = 'new';
+
   public selectedDate: Date | null = null;
 
   public orderVisible = true;
 
-  public readonly order = {
-    title: 'Уборка однокомнатной квартиры',
-    jobDescription: 'Генеральная уборка квартиры площадью 40 кв.м.',
-    address: 'ул. Ленина, д. 10',
-    date: '05.05.2025',
-    time: '15:00',
-    status: 'new' as 'new' | 'inprogress' | 'completed'
-  };
+  public spesialistOrders: Order[] = [];
+  public spesialistOrder?: Order;
 
-  get orderDate(): Date {
-    const [day, month, year] = this.order.date.split('.').map(Number);
+  constructor(
+    private route: ActivatedRoute,
+    private orderSharedService: OrderSharedService,
+  ) {}
+
+  ngOnInit() {
+
+    const specialistOrderId = Number(this.route.snapshot.paramMap.get('id'));
+    this.orderSharedService.getSpecialistOrderById(specialistOrderId).subscribe({
+    next: (o) => {
+      this.spesialistOrder = o;
+    },
+    });
+
+    this.orderSharedService.getSpecialistOrders().subscribe(data => this.spesialistOrders = data);
+  }
+
+  public getOrderDate(orderDateString: string): Date {
+    const [day, month, year] = orderDateString.split('.').map(Number);
     return new Date(year, month - 1, day);
   }
+
+  public getFilteredOrders() {
+    return this.spesialistOrders.filter(order => order.status === this.currentStatus);
+  }
   
-  public getOrderDescription(order = this.order): string {
+  public getOrderDescription(order: any): string {
     return `${order.jobDescription} Адрес: ${order.address}. Дата: <b>${order.date}</b> Время: <b>${order.time}</b>.`;
   }
   
@@ -47,25 +66,25 @@ export class OrdersComponent {
   public onDateSelect(date: Date) {
     this.selectedDate = date;
     
-    const isSameDate =
-      date.getDate() === this.orderDate.getDate() &&
-      date.getMonth() === this.orderDate.getMonth() &&
-      date.getFullYear() === this.orderDate.getFullYear();
+    // const isSameDate =
+    //   date.getDate() === this.orderDate.getDate() &&
+    //   date.getMonth() === this.orderDate.getMonth() &&
+    //   date.getFullYear() === this.orderDate.getFullYear();
 
-    this.orderVisible = isSameDate;
+    // this.orderVisible = isSameDate;
   }
   
-  public acceptOrder() {
-    this.order.status = 'inprogress';
+  public acceptOrder(order: any) {
+    order.status = 'inprogress';
     // Логика принятия заказа
   }
   
-  public declineOrder() {
-    this.orderVisible = false;
+  public declineOrder(order: any) {
+    order.visible = false;
   }
   
-  public completeOrder() {
-    this.order.status = 'completed';
+  public completeOrder(order: any) {
+    order.status = 'completed';
     // Логика завершения заказа
   }
 }
