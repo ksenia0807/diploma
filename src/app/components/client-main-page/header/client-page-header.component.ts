@@ -6,7 +6,7 @@ import { FloatLabelModule } from "primeng/floatlabel";
 import { DialogModule } from 'primeng/dialog';
 import { SliderModule } from 'primeng/slider';
 import { ButtonModule } from 'primeng/button';
-import { ClientProfileService, User } from 'src/app/services/client-profile.service';
+import { Client, ClientProfileService } from 'src/app/services/client-profile.service';
 import { Router } from '@angular/router';
 
 interface Service {
@@ -34,8 +34,8 @@ interface CityFilter {
 })
 export class ClientPageHeaderComponent implements OnInit{
 
-  user?: User;
-  clients: User[] = [];
+  user?: Client;
+  clients: Client[] = [];
 
   ngOnInit() {
     this.clientProfileService.getUsers().subscribe(users => {
@@ -134,7 +134,7 @@ export class ClientPageHeaderComponent implements OnInit{
     });
   }
 
-  public openProfile(user: User) {
-    this.router.navigate(['/user', user.id]);
+  public openProfile(user: Client) {
+    this.router.navigate(['/client', user.id]);
   }
 }

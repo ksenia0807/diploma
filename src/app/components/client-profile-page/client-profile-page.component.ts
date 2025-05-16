@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { ClientProfileService, User } from 'src/app/services/client-profile.service';
+import { Client, ClientProfileService } from 'src/app/services/client-profile.service';
 import { Order, OrdersService } from 'src/app/services/orders.service';
 import { TableModule } from 'primeng/table';
 
@@ -14,7 +14,7 @@ import { TableModule } from 'primeng/table';
 })
 export class ClientProfilePageComponent implements OnInit {
 
-    client?: User;
+    client?: Client;
     order?: Order;
     orders: Order[] = [];
 
