@@ -1,14 +1,9 @@
 <div class="gap-5 flex flex-column">
-    <app-specialist-page-header></app-specialist-page-header>
+    <app-specialist-page-header (statusChanged)="onStatusChanged($event)"></app-specialist-page-header>
     <div class="orders-calendar-wrapper">
         <div class="orders-panel">
             <p-scrollPanel [style]="{ width: '100%', height: '650px' }">
-                <div class="flex flex-column gap-3">
-                    <app-orders></app-orders>
-                    <app-orders></app-orders>
-                    <app-orders></app-orders>
-                    <app-orders></app-orders>
-                </div>
+                <app-orders [currentStatus]="currentStatus"></app-orders>
             </p-scrollPanel>
         </div>
         <div class="calendar-panel">

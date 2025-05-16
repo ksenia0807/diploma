@@ -18,4 +18,11 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
   templateUrl: './specialist-main-page.component.html',
   styleUrl: './specialist-main-page.component.scss'
 })
-export class SpecialistMainPageComponent {}
+export class SpecialistMainPageComponent {
+
+  currentStatus: string = 'new';
+
+  public onStatusChanged(status: string) {
+    this.currentStatus = status;
+  }
+}

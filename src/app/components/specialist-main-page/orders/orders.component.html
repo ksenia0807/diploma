@@ -1,18 +1,23 @@
-<p-card *ngIf="orderVisible" [style]="{ width: '100%' }" [ngClass]="order.status">
-    <ng-template pTemplate="header">
-      <div class="order-header">
-        <h2>{{ order.title }}</h2>
-        <span class="order-status" [ngClass]="order.status">{{ getStatusLabel(order.status) }}</span>
-      </div>
-    </ng-template>
-  
-    <p [innerHTML] = "getOrderDescription(order)"></p>
-  
-    <ng-template pTemplate="footer">
-      <div class="order-actions">
-        <p-button *ngIf="order.status === 'new'" label="Принять" icon="pi pi-check" class="p-button-success" (click)="acceptOrder()"></p-button>
-        <p-button *ngIf="order.status === 'new'" label="Отклонить" icon="pi pi-times" class="p-button-danger" (click)="declineOrder()"></p-button>
-        <p-button *ngIf="order.status === 'inprogress'" label="Завершить" icon="pi pi-check-circle" class="p-button-warning" (click)="completeOrder()"></p-button>
-      </div>
-    </ng-template>
-  </p-card>
+<div class="flex flex-column gap-3">
+  <div *ngFor="let order of getFilteredOrders()">
+    <p-card *ngIf="orderVisible" [style]="{ width: '100%' }" [ngClass]="order.status">
+      <ng-template pTemplate="header">
+        <div class="order-header">
+          <h2>{{ order.title }}</h2>
+          <span class="order-status" [ngClass]="order.status">{{ getStatusLabel(order.status) }}</span>
+        </div>
+      </ng-template>
+    
+      <p [innerHTML] = "getOrderDescription(order)"></p>
+    
+      <ng-template pTemplate="footer">
+        <div class="order-actions">
+          <p-button *ngIf="order.status === 'new'" label="Принять" icon="pi pi-check" class="p-button-success" (click)="acceptOrder(order)"></p-button>
+          <p-button *ngIf="order.status === 'new'" label="Отклонить" icon="pi pi-times" class="p-button-danger" (click)="declineOrder(order)"></p-button>
+          <p-button *ngIf="order.status === 'inprogress'" label="Завершить" icon="pi pi-check-circle" class="p-button-warning" (click)="completeOrder(order)"></p-button>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+</div>
+

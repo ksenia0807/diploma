@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
@@ -20,12 +20,21 @@ export class SpecialistPageHeaderComponent implements OnInit {
   public orderStatus: MenuItem[] | undefined;
   user?: Specialist;
   specialists: Specialist[] = [];
+  activeStatus: string = 'new';
+
+  @Output() statusChanged = new EventEmitter<string>();
 
   ngOnInit() {
     this.orderStatus = [
-        { label: 'Поступившие' },
-        { label: 'В процессе' },
-        { label: 'Завершенные' },
+        { label: 'Поступившие',
+          command: () => this.changeStatus('new')
+        },
+        { label: 'В процессе',
+          command: () => this.changeStatus('inprogress')
+        },
+        { label: 'Завершенные',
+          command: () => this.changeStatus('completed')
+        },
     ]
 
     this.specialistProfileService.getUsers().subscribe(users => {
@@ -33,6 +42,11 @@ export class SpecialistPageHeaderComponent implements OnInit {
       this.user = users[0];  
     }
     });
+  }
+
+  public changeStatus(status: string) {
+    this.activeStatus = status;
+    this.statusChanged.emit(status);
   }
 
   constructor(

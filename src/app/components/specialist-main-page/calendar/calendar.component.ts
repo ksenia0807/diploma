@@ -37,7 +37,7 @@ export class CalendarComponent {
 
     if (this.orderVisible) {
       this.description = this.orderSharedService.getOrderDescription(this.order);
-      this.statusLabel = this.orderSharedService.getStatusLabel(this.order.status);
+      // this.statusLabel = this.orderSharedService.getStatusLabel(this.order.status);
     }
   }
 
