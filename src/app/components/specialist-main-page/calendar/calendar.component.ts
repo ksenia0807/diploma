@@ -23,32 +23,40 @@ export class CalendarComponent {
 
   selectedDate: Date | null = null;
   orderVisible = false;
-  order: Order;
+  currentOrder: Order | null = null;
   description = '';
   statusLabel = '';
 
   constructor(public orderSharedService: OrderSharedService) {
-    this.order = this.orderSharedService.specialistOrders;
+    // this.order = this.orderSharedService.specialistOrders;
   }
   
   onDateSelect(date: Date) {
     this.selectedDate = date;
-    this.orderVisible = this.isOrderDate(date);
-
-    if (this.orderVisible) {
-      this.description = this.orderSharedService.getOrderDescription(this.order);
-      // this.statusLabel = this.orderSharedService.getStatusLabel(this.order.status);
+    this.currentOrder = this.orderSharedService.getOrderByDate(date);
+    
+    if (this.currentOrder) {
+      this.description = this.orderSharedService.getOrderDescription(this.currentOrder);
+      this.statusLabel = this.orderSharedService.getStatusLabel(this.currentOrder.status);
     }
   }
 
-  isOrderDate(date: Date | null): boolean {
-    if (!date) return false;
-    const [day, month, year] = this.order.date.split('.').map(Number);
-    return (
-      date.getDate() === day &&
-      date.getMonth() + 1 === month &&
-      date.getFullYear() === year
-    );
+  acceptOrder() {
+    if (this.currentOrder) {
+      this.currentOrder.status = 'inprogress';
+      this.statusLabel = this.orderSharedService.getStatusLabel(this.currentOrder.status);
+    }
+  }
+
+  declineOrder() {
+    this.currentOrder = null;
+  }
+
+  completeOrder() {
+    if (this.currentOrder) {
+      this.currentOrder.status = 'completed';
+      this.statusLabel = this.orderSharedService.getStatusLabel(this.currentOrder.status);
+    }
   }
 
 }

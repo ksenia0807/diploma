@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { Order, OrderSharedService } from 'src/app/services/order-shared.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -19,35 +21,25 @@ export class OrdersComponent {
 
   public orderVisible = true;
 
-  public orders = [
-    {
-      id: 1,
-      title: 'Уборка однокомнатной квартиры',
-      jobDescription: 'Генеральная уборка квартиры площадью 40 кв.м.',
-      address: 'ул. Ленина, д. 10',
-      date: '05.05.2025',
-      time: '15:00',
-      status: 'new' as 'new' | 'inprogress' | 'completed'
+  public spesialistOrders: Order[] = [];
+  public spesialistOrder?: Order;
+
+  constructor(
+    private route: ActivatedRoute,
+    private orderSharedService: OrderSharedService,
+  ) {}
+
+  ngOnInit() {
+
+    const specialistOrderId = Number(this.route.snapshot.paramMap.get('id'));
+    this.orderSharedService.getSpecialistOrderById(specialistOrderId).subscribe({
+    next: (o) => {
+      this.spesialistOrder = o;
     },
-    {
-      id: 2,
-      title: 'Ремонт ванной комнаты',
-      jobDescription: 'Замена сантехники и плитки',
-      address: 'ул. Гагарина, д. 5',
-      date: '06.05.2025',
-      time: '10:00',
-      status: 'inprogress' as 'new' | 'inprogress' | 'completed'
-    },
-    {
-      id: 3,
-      title: 'Доставка продуктов',
-      jobDescription: 'Доставка продуктов из магазина',
-      address: 'ул. Пушкина, д. 15',
-      date: '04.05.2025',
-      time: '12:00',
-      status: 'completed' as 'new' | 'inprogress' | 'completed'
-    }
-  ];
+    });
+
+    this.orderSharedService.getSpecialistOrders().subscribe(data => this.spesialistOrders = data);
+  }
 
   public getOrderDate(orderDateString: string): Date {
     const [day, month, year] = orderDateString.split('.').map(Number);
@@ -55,7 +47,7 @@ export class OrdersComponent {
   }
 
   public getFilteredOrders() {
-    return this.orders.filter(order => order.status === this.currentStatus);
+    return this.spesialistOrders.filter(order => order.status === this.currentStatus);
   }
   
   public getOrderDescription(order: any): string {

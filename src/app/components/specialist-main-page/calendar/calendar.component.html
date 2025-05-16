@@ -1,20 +1,52 @@
 <div class="flex flex-column gap-3">
     <p-calendar 
-    class="max-w-full" 
-    [(ngModel)]="selectedDate"
-    [inline]="true" 
-    [showWeek]="true" 
-    (onSelect)="onDateSelect($event)"/>
+        class="max-w-full" 
+        [(ngModel)]="selectedDate"
+        [inline]="true" 
+        [showWeek]="true" 
+        (onSelect)="onDateSelect($event)"/>
 
     <p-scrollPanel [style]="{ width: '65%', height: '235px' }">
-        <p-card *ngIf="orderVisible" [style]="{ width: '100%' }" [ngClass]="order.status">
-            <ng-template pTemplate="header">
-            <div class="order-header">
-                <h2>{{ order.title }}</h2>
+        <div *ngIf="currentOrder; else noOrders">
+            <p-card [style]="{ width: '100%', 'margin-bottom': '1rem' }" 
+                   [ngClass]="currentOrder.status">
+                <ng-template pTemplate="header">
+                    <div class="order-header">
+                        <h2>{{ currentOrder.title }}</h2>
+                        <span class="order-status" [ngClass]="currentOrder.status">
+                            {{ statusLabel }}
+                        </span>
+                    </div>
+                </ng-template>
+                <p>{{ description }}</p>
+                
+                <ng-template pTemplate="footer">
+                    <div class="order-actions">
+                        <p-button *ngIf="currentOrder.status === 'new'" 
+                                label="Принять" 
+                                icon="pi pi-check" 
+                                class="p-button-success"
+                                (click)="acceptOrder()"></p-button>
+                        <p-button *ngIf="currentOrder.status === 'new'" 
+                                label="Отклонить" 
+                                icon="pi pi-times" 
+                                class="p-button-danger"
+                                (click)="declineOrder()"></p-button>
+                        <p-button *ngIf="currentOrder.status === 'inprogress'" 
+                                label="Завершить" 
+                                icon="pi pi-check-circle" 
+                                class="p-button-warning"
+                                (click)="completeOrder()"></p-button>
+                    </div>
+                </ng-template>
+            </p-card>
+        </div>
+        
+        <ng-template #noOrders>
+            <div *ngIf="selectedDate" class="p-3 text-center">
+                <p>На выбранную дату заказов нет</p>
             </div>
-            </ng-template>
-            <p>{{ description }}</p>
-        </p-card>
+        </ng-template>
     </p-scrollPanel>
 </div>
 

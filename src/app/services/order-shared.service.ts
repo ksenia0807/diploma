@@ -1,9 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 export type OrderStatus = 'new' | 'inprogress' | 'completed';
 
 export interface Order {
+  id: number;
   title: string;
   jobDescription: string;
   address: string;
@@ -14,27 +16,32 @@ export interface Order {
 
 @Injectable({ providedIn: 'root' })
 export class OrderSharedService {
+  
   private selectedDateSubject = new BehaviorSubject<Date | null>(null);
   selectedDate$ = this.selectedDateSubject.asObservable();
+  specialistOrders: Order[] = [];
+
+  constructor(private http: HttpClient) {}
+  
+  public getSpecialistOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>('/api/specialistsOrders');
+  }
+
+  public getSpecialistOrderById(id: number): Observable<Order | undefined> {
+    return this.getSpecialistOrders().pipe(
+      map(orders => orders.find(o => o.id === id))
+    );
+  }
 
   public selectDate(date: Date) {
     this.selectedDateSubject.next(date);
   }
 
-  public readonly specialistOrders: Order = {
-    title: 'Уборка однокомнатной квартиры',
-    jobDescription: 'Генеральная уборка квартиры площадью 40 кв.м.',
-    address: 'ул. Ленина, д. 10',
-    date: '05.05.2025',
-    time: '15:00',
-    status: 'new'
-  };
-
-  public getOrderDescription(order: Order = this.specialistOrders): string {
+  public getOrderDescription(order: Order): string {
     return `${order.jobDescription} Адрес: ${order.address}. Дата: ${order.date} Время: ${order.time}.`;
   }
 
-  public getStatusLabel(status: OrderStatus): string {
+  getStatusLabel(status: OrderStatus): string {
     switch (status) {
       case 'new': return 'Поступивший';
       case 'inprogress': return 'В процессе';
@@ -42,4 +49,17 @@ export class OrderSharedService {
       default: return '';
     }
   }
+
+  getOrderByDate(date: Date): Order | null {
+    const foundOrder = this.specialistOrders.find(order => {
+      const [day, month, year] = order.date.split('.').map(Number);
+      return (
+        date.getDate() === day &&
+        date.getMonth() + 1 === month &&
+        date.getFullYear() === year
+      );
+    });
+    return foundOrder || null;
+  }
+
 }
