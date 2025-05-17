@@ -11,6 +11,16 @@
         placeholder="Выберите услугу">
         </p-dropdown>
       </div>
+
+      <div class="flex flex-column gap-2">
+        <label for="description">Описание заказа</label>
+        <textarea 
+          id="description"
+          pInputTextarea
+          formControlName="description"
+          placeholder="Опишите детали заказа (что нужно сделать, особенности и т.д.)">
+        </textarea>
+      </div>
   
       <div class="flex flex-column gap-2">
         <label for="date">Дата</label>

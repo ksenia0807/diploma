@@ -6,6 +6,7 @@ import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 
 @Component({
@@ -17,7 +18,8 @@ import { InputTextModule } from 'primeng/inputtext';
     DropdownModule,
     DialogModule,
     ReactiveFormsModule,
-    InputTextModule
+    InputTextModule,
+    InputTextareaModule
   ],
   templateUrl: './order-modal.component.html',
   styleUrl: './order-modal.component.scss'
@@ -41,7 +43,10 @@ export class OrderModalComponent implements OnInit {
     { label: '12:00', value: '12:00' },
     { label: '13:00', value: '13:00' },
     { label: '14:00', value: '14:00' },
-    { label: '15:00', value: '15:00' }
+    { label: '15:00', value: '15:00' },
+    { label: '16:00', value: '16:00' },
+    { label: '17:00', value: '17:00' },
+    { label: '18:00', value: '18:00' },
   ];
   public minDate: Date = new Date();
 
@@ -51,6 +56,7 @@ export class OrderModalComponent implements OnInit {
     this.services = this._config.data?.services ?? [];
     this.orderForm = this.fb.group({
       service: [null, Validators.required],
+      description: ['', Validators.required],
       date: [null, Validators.required],
       time: [null, Validators.required],
       address: ['', [Validators.required, Validators.minLength(5)]]

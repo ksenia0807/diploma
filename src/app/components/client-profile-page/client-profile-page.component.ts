@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms'; 
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
   selector: 'app-client-profile-page',
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     ButtonModule, 
     DialogModule,
     RatingModule,
-    FormsModule
+    FormsModule,
+    InputTextareaModule
   ],
   templateUrl: './client-profile-page.component.html',
   styleUrl: './client-profile-page.component.scss'
@@ -88,6 +90,7 @@ export class ClientProfilePageComponent implements OnInit {
       case 'canceled': return 'Отменен';
       case 'inprogress': return 'В процессе';
       case 'completed': return 'Завершённый';
+      case 'new': return 'Новый';
       default: return '';
     }
   }
