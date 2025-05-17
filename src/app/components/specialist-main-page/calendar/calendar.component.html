@@ -8,20 +8,21 @@
 
     <p-scrollPanel *ngIf="hasOrders()" [style]="{ width: '100%', height: '235px' }" class="orders-panel">
         <div *ngFor="let order of ordersForDate">
-            <p-card [style]="{ width: '100%', 'margin-bottom': '1rem' }" 
-                   [ngClass]="order.status">
-                <ng-template pTemplate="header">
-                    <div class="order-header">
-                        <h2>{{ order.title }}</h2>
+            <div *ngIf="order.status != 'canceled'">
+                <p-card [style]="{ width: '100%', 'margin-bottom': '1rem' }" 
+                    [ngClass]="order.status">
+                    <ng-template pTemplate="header">
+                        <div class="order-header">
+                            <h2>{{ order.title }}</h2>
+                        </div>
+                    </ng-template>
+                    <div class="order-details">
+                        <p><strong>Описание:</strong> {{ order.jobDescription }}</p>
+                        <p><strong>Адрес:</strong> {{ order.address }}</p>
+                        <p><strong>Время:</strong> {{ order.time }}</p>
                     </div>
-                </ng-template>
-                <div class="order-details">
-                    <p><strong>Описание:</strong> {{ order.jobDescription }}</p>
-                    <p><strong>Адрес:</strong> {{ order.address }}</p>
-                    <p><strong>Время:</strong> {{ order.time }}</p>
-                </div>
-                
-            </p-card>
+                </p-card>
+            </div>
         </div>
         
          <div *ngIf="selectedDate && !hasOrders()" class="p-3 text-center">
