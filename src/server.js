@@ -148,6 +148,18 @@ var orders = [
       date: '04.05.2025',
       time: '12:00',
       status: 'completed'
+    },
+    {
+      id: 3,
+      specialistId: 11,
+      customerId: 22,
+      title: 'Доставка продуктов',
+      jobDescription: 'Доставка продуктов из магазина',
+      price: 150,
+      address: 'ул. Пушкина, д. 15',
+      date: '04.05.2025',
+      time: '12:00',
+      status: 'new'
     }
 ];
 

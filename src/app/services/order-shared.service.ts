@@ -58,16 +58,18 @@ export class OrderSharedService{
     }
   }
 
-  public getOrderByDate(date: Date): Observable<Order | undefined> {
-    return this.specialistOrders$.pipe(
-      map(orders => orders.find(order => {
-        const [day, month, year] = order.date.split('.').map(Number);
-        return (
-          date.getDate() === day &&
-          date.getMonth() + 1 === month &&
-          date.getFullYear() === year
-        );
-      }))
+  private formatDate(date: Date): string {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  }
+
+  getOrdersByDate(date: Date): Observable<Order[]> {
+    const dateStr = this.formatDate(date);
+    
+    return this.http.get<Order[]>('/api/specialistsOrders').pipe(
+      map(orders => orders.filter(order => order.date === dateStr))
     );
   }
 

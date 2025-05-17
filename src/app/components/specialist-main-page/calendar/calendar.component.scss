@@ -85,6 +85,13 @@
   .orders-panel {
     width: 466px;
     height: auto;
+
+    .order-details {
+    padding: 0 0.5rem;
+    p {
+      margin: 0.25rem 0;
+    }
+    }
   }
 
 }

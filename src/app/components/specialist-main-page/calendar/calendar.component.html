@@ -6,24 +6,28 @@
     [showWeek]="true" 
     (onSelect)="onDateSelect($event)"/>
 
-    <p-scrollPanel [style]="{ width: '100%', height: '235px' }" class="orders-panel">
-        <div *ngIf="currentOrder; else noOrders">
-            <p-card [style]="{ width: '100%', 'margin-bottom': '1rem' }" 
-                   [ngClass]="currentOrder.status">
-                <ng-template pTemplate="header">
-                    <div class="order-header">
-                        <h2>{{ currentOrder.title }}</h2>
+    <p-scrollPanel *ngIf="hasOrders()" [style]="{ width: '100%', height: '235px' }" class="orders-panel">
+        <div *ngFor="let order of ordersForDate">
+            <div *ngIf="order.status != 'canceled'">
+                <p-card [style]="{ width: '100%', 'margin-bottom': '1rem' }" 
+                    [ngClass]="order.status">
+                    <ng-template pTemplate="header">
+                        <div class="order-header">
+                            <h2>{{ order.title }}</h2>
+                        </div>
+                    </ng-template>
+                    <div class="order-details">
+                        <p><strong>Описание:</strong> {{ order.jobDescription }}</p>
+                        <p><strong>Адрес:</strong> {{ order.address }}</p>
+                        <p><strong>Время:</strong> {{ order.time }}</p>
                     </div>
-                </ng-template>
-                <p>{{ description }}</p>
-                
-            </p-card>
+                </p-card>
+            </div>
         </div>
         
-        <ng-template #noOrders>
-            <div *ngIf="selectedDate" class="p-3 text-center">
-                <p>На выбранную дату заказов нет</p>
-            </div>
-        </ng-template>
+         <div *ngIf="selectedDate && !hasOrders()" class="p-3 text-center">
+            <p>На выбранную дату заказов нет</p>
+        </div>
+
     </p-scrollPanel>
 </div>

@@ -38,7 +38,8 @@
               [ngClass]="{
                 'completed': order.status === 'completed',
                 'inprogress': order.status === 'inprogress',
-                'canceled': order.status === 'canceled'
+                'canceled': order.status === 'canceled',
+                'new': order.status === 'new'
               }">
               {{ getStatusLabel(order.status) }}
             </span>
