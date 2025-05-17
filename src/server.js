@@ -153,11 +153,11 @@ var orders = [
       id: 3,
       specialistId: 11,
       customerId: 22,
-      title: 'Доставка продуктов',
-      jobDescription: 'Доставка продуктов из магазина',
+      title: 'Химчистка',
+      jobDescription: 'Химчистка дивана',
       price: 150,
       address: 'ул. Пушкина, д. 15',
-      date: '04.05.2025',
+      date: '07.05.2025',
       time: '12:00',
       status: 'new'
     }
