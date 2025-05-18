@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClientProfileService } from 'src/app/services/client-profile.service';
 import { TableModule } from 'primeng/table';
 import { ReviewService } from 'src/app/services/review.service';
@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { Client } from 'src/app/models/client.model';
 import { Order } from 'src/app/models/order.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-client-profile-page',
@@ -42,9 +43,11 @@ export class ClientProfilePageComponent implements OnInit {
 
     constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private clientProfileService: ClientProfileService,
     private orderService: OrderSharedService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -95,6 +98,11 @@ export class ClientProfilePageComponent implements OnInit {
       case 'new': return 'Новый';
       default: return '';
     }
+  }
+
+  public logout() {
+    this.authService.logout(); // Вызов метода выхода из сервиса
+    this.router.navigate(['/auth']); // Перенаправление на страницу авторизации
   }
 
 }

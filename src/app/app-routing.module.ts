@@ -14,8 +14,8 @@ const routes: Routes = [
   // { path: 'profile', component: ClientProfilePageComponent, canActivate: [AuthGuard] },
   // { path: '', redirectTo: 'profile', pathMatch: 'full' }
 
-  // { path: '', component: ClientMainPageComponent },
-  { path: '', component: SpecialistMainPageComponent },
+  { path: '', component: ClientMainPageComponent },
+  // { path: '', component: SpecialistMainPageComponent },
   { path: 'client/:id', component: ClientProfilePageComponent },
   { path: 'specialist-profile/:id', component: SpecialistProfilePageComponent },
   { path: 'specialist-reviews/:id', component: SpecialistReviewsComponent },

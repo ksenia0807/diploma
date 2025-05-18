@@ -18,6 +18,10 @@
                 font-size: large;
             }
         }
+
+        .p-button {
+            padding: 16px;
+        }
         
     }
 
@@ -31,6 +35,12 @@
 
     .new {
         color: var(--red-600)
+    }
+
+    .logout {
+        color: var(--red-600);
+        font-weight: 700;
+        font-size: large;
     }
 
 }

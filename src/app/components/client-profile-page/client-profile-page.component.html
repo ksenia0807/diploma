@@ -1,13 +1,26 @@
 <div *ngIf="client" class="surface-card p-4 shadow-2 border-round-xl w-6 mx-auto mt-5">
   <!-- Профиль пользователя -->
-  <div class="flex align-items-center gap-4 mb-4">
-    <img [src]="client.avatar[0]" alt="Аватар" class="border-circle" style="width: 96px; height: 96px; object-fit: cover;">
-    <div>
-      <div class="text-2xl font-bold mb-1">{{ client.surname }} {{ client.name }} {{ client.patronymic }}</div>
-      <div class="flex align-items-center text-color-secondary">
-        <i class="pi pi-map-marker text-primary mr-2"></i>
-        <span>{{ client.location }}</span>
+  <div class="flex justify-content-between">
+    <div class="flex align-items-center justify-content-between gap-4 mb-4">
+      <img [src]="client.avatar[0]" class="border-circle" style="width: 96px; height: 96px; object-fit: cover;">
+      <div>
+        <div class="text-2xl font-bold mb-1">{{ client.surname }} {{ client.name }} {{ client.patronymic }}</div>
+        <div class="flex align-items-center text-color-secondary">
+          <i class="pi pi-map-marker text-primary mr-2"></i>
+          <span>{{ client.location }}</span>
+        </div>
       </div>
+    </div>
+    
+    <div class="flex flex-row gap-3">
+      <p class="logout">Выйти</p>
+      <p-button 
+      icon="pi pi-sign-out" 
+      class="logoutbutton"
+      (click)="logout()"
+      pTooltip="Выйти из аккаунта"
+      tooltipPosition="bottom">
+      </p-button>
     </div>
   </div>
 
