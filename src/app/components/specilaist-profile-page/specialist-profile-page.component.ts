@@ -74,7 +74,6 @@ export class SpecialistProfilePageComponent implements OnInit{
 
     this.serviceForm = this.fb.group({
       title: ['', Validators.required],
-      description: ['', Validators.required],
       location: ['', Validators.required]
     });
   }
