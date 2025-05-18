@@ -18,6 +18,7 @@ import { ToastModule } from 'primeng/toast';
 import { Specialist } from 'src/app/models/specialist.model';
 import { Work } from 'src/app/models/work.model';
 import { Service } from 'src/app/models/service.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-specialist-profile-page',
@@ -58,7 +59,8 @@ export class SpecialistProfilePageComponent implements OnInit{
     private router: Router,
     private specialistProfileService: SpecialistProfileService,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private authService: AuthService
   ) {
     this.specialistForm = this.fb.group({
       name: ['', Validators.required],
@@ -159,6 +161,11 @@ export class SpecialistProfilePageComponent implements OnInit{
 
   public viewReviews() {
     this.router.navigate(['/specialist-reviews', this.specialist?.id]);
+  }
+
+  public logout() {
+    this.authService.logout(); // Вызов метода выхода из сервиса
+    this.router.navigate(['/auth']); // Перенаправление на страницу авторизации
   }
   
 }

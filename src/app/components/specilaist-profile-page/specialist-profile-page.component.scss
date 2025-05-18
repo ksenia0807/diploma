@@ -19,3 +19,11 @@
   }
  
 }
+
+:host {
+  .logout {
+    color: var(--red-600);
+    font-weight: 700;
+    font-size: large;
+  }
+}

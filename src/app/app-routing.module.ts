@@ -10,7 +10,7 @@ import { SpecialistMainPageComponent } from './components/specialist-main-page/s
 import { SpecialistReviewsComponent } from './components/specilaist-profile-page/specialist-reviews/specialist-reviews.component';
 
 const routes: Routes = [
-  // { path: 'login', component: AuthPageComponent },
+  { path: 'auth', component: AuthPageComponent },
   // { path: 'profile', component: ClientProfilePageComponent, canActivate: [AuthGuard] },
   // { path: '', redirectTo: 'profile', pathMatch: 'full' }
 
