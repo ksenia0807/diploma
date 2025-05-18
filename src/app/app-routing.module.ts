@@ -7,7 +7,7 @@ import { AuthPageComponent } from './components/auth-page/auth-page.component';
 import { AuthGuard } from './services/auth.guard';
 import { SpecialistProfilePageComponent } from './components/specilaist-profile-page/specialist-profile-page.component';
 import { SpecialistMainPageComponent } from './components/specialist-main-page/specialist-main-page.component';
-import { SpecialistReviewsComponent } from './components/specialist-reviews/specialist-reviews.component';
+import { SpecialistReviewsComponent } from './components/specilaist-profile-page/specialist-reviews/specialist-reviews.component';
 
 const routes: Routes = [
   // { path: 'login', component: AuthPageComponent },
