@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Client, ClientProfileService } from 'src/app/services/client-profile.service';
+import { ClientProfileService } from 'src/app/services/client-profile.service';
 import { TableModule } from 'primeng/table';
 import { ReviewService } from 'src/app/services/review.service';
-import { Order, OrderSharedService } from 'src/app/services/order-shared.service';
+import { OrderSharedService } from 'src/app/services/order-shared.service';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms'; 
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { Client } from 'src/app/models/client.model';
+import { Order } from 'src/app/models/order.model';
 
 @Component({
   selector: 'app-client-profile-page',

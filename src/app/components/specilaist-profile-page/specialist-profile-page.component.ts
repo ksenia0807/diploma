@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Specialist, SpecialistProfileService, Work, Service } from 'src/app/services/specialist-profile.service';
+import { SpecialistProfileService } from 'src/app/services/specialist-profile.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +15,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
+import { Specialist } from 'src/app/models/specialist.model';
+import { Work } from 'src/app/models/work.model';
+import { Service } from 'src/app/models/service.model';
 
 @Component({
   selector: 'app-specialist-profile-page',

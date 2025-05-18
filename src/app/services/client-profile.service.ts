@@ -1,15 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-export interface Client {
-  id: number;
-  name: string;
-  surname: string;
-  patronymic: string;
-  avatar: string[];
-  location: string;
-}
+import { Client } from '../models/client.model';
 
 @Injectable({
   providedIn: 'root'

@@ -2,8 +2,9 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { Order, OrderSharedService } from 'src/app/services/order-shared.service';
+import { OrderSharedService } from 'src/app/services/order-shared.service';
 import { ActivatedRoute } from '@angular/router';
+import { Order } from 'src/app/models/order.model';
 
 
 @Component({

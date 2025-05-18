@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
-import { Specialist, SpecialistProfileService } from 'src/app/services/specialist-profile.service';
+import { SpecialistProfileService } from 'src/app/services/specialist-profile.service';
 import { ActivatedRoute } from '@angular/router';
-import { Review, ReviewService } from 'src/app/services/review.service';
+import { ReviewService } from 'src/app/services/review.service';
+import { Specialist } from 'src/app/models/specialist.model';
+import { Review } from 'src/app/models/review.model';
 
 @Component({
   selector: 'app-specialist-reviews',

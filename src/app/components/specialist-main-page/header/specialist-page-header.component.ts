@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Specialist, SpecialistProfileService } from 'src/app/services/specialist-profile.service';
+import { SpecialistProfileService } from 'src/app/services/specialist-profile.service';
+import { Specialist } from 'src/app/models/specialist.model';
 
 @Component({
   selector: 'app-specialist-page-header',

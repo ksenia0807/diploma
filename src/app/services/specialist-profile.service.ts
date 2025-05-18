@@ -2,33 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Specialist } from '../models/specialist.model';
 
-export interface Specialist {
-  id: number;
-  avatar: string[];
-  name: string;
-  surname: string;
-  patronymic: string;
-  email: string;
-  phone: string;
-  location: string;
-  about: string;
-  services: Service[];
-}
-
-export interface Service {
-  id?: number;
-  title: string;
-  description: string;
-  works: Work[];
-  location: string;
-  photos: string[];
-}
-
-export interface Work {
-  name: string;
-  price: number;
-}
 
 @Injectable({
   providedIn: 'root'

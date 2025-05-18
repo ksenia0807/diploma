@@ -6,8 +6,9 @@ import { FloatLabelModule } from "primeng/floatlabel";
 import { DialogModule } from 'primeng/dialog';
 import { SliderModule } from 'primeng/slider';
 import { ButtonModule } from 'primeng/button';
-import { Client, ClientProfileService } from 'src/app/services/client-profile.service';
+import { ClientProfileService } from 'src/app/services/client-profile.service';
 import { Router } from '@angular/router';
+import { Client } from 'src/app/models/client.model';
 
 interface Service {
   name: string;

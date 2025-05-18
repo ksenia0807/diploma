@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
-import { Order, OrderSharedService } from 'src/app/services/order-shared.service';
+import { OrderSharedService } from 'src/app/services/order-shared.service';
 import { CardModule } from 'primeng/card';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { Order } from 'src/app/models/order.model';
 
 @Component({
   selector: 'app-calendar',
