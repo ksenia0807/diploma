@@ -2,7 +2,7 @@ export interface Review {
   orderId: number;
   specialistId: number;
   clientId: number;
-  authorName: string;
+  login: string;
   rating: number;
   comment: string;
   date: Date;

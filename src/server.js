@@ -303,7 +303,6 @@ var specialistsProfiles = [
       {
         id: 1,
         title: 'Сборка мебели',
-        description: 'Сборка мебели любых производителей',
         works: [
           {
             name: 'Сборка кухни',
@@ -330,7 +329,7 @@ const reviews = [
     orderId: 1,
     specialistId: 11, 
     clientId: 22,
-    authorName: 'Алексей Петров',
+    login: 'kukuruzka13',
     rating: 5,
     comment: 'Отличный специалист! Сделал всё качественно и в срок. Рекомендую!',
     date: new Date('2023-05-15')
@@ -339,16 +338,16 @@ const reviews = [
     orderId: 2,
     specialistId: 11, 
     clientId: 22,
-    authorName: 'Мария Сидорова',
+    login: 'Grigoriy',
     rating: 4,
-    comment: 'Хорошая работа, но были небольшие задержки. В целом довольна.',
+    comment: 'Хорошая работа, но были небольшие задержки. В целом доволен.',
     date: new Date('2023-06-20')
   },
   {
     orderId: 3,
     specialistId: 11, 
     clientId: 22,
-    authorName: 'Дмитрий Николаев',
+    login: 'dNikolaev89',
     rating: 5,
     comment: 'Лучший специалист в своём деле. Буду обращаться ещё!',
     date: new Date('2023-07-10')

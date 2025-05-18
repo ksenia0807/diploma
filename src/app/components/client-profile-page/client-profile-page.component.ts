@@ -72,9 +72,9 @@ export class ClientProfilePageComponent implements OnInit {
 
     const review = {
       orderId: this.selectedOrder.id,
-      specialistId: this.selectedOrder.specialistId, // Предполагаем, что в заказе есть ID специалиста
+      specialistId: this.selectedOrder.specialistId, 
       clientId: this.client.id,
-      authorName: `${this.client.surname} ${this.client.name}`,
+      login: `${this.client.login}`,
       rating: this.newReview.rating,
       comment: this.newReview.comment,
       date: new Date()
@@ -84,7 +84,6 @@ export class ClientProfilePageComponent implements OnInit {
       next: () => {
         this.displayReviewDialog = false;
         this.newReview = { rating: 0, comment: '' };
-        // Можно обновить список заказов или показать уведомление
       },
       error: (err) => console.error('Ошибка при отправке отзыва:', err)
     });
