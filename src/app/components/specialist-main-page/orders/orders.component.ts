@@ -52,7 +52,11 @@ export class OrdersComponent {
   }
   
   public getOrderDescription(order: any): string {
-    return `${order.jobDescription} Адрес: ${order.address}. Дата: <b>${order.date}</b> Время: <b>${order.time}</b>.`;
+    return `<b><b>${order.jobDescription}</b></b><br><br> 
+    Адрес: <b>${order.address}</b>.<br>
+    Дата: <b>${order.date}</b><br>
+    Время: <b>${order.time}</b><br>
+    Цена: <b>${order.price}</b>.`;
   }
   
   public getStatusLabel(status: string): string {
@@ -70,7 +74,6 @@ export class OrdersComponent {
   
   public acceptOrder(order: any) {
     order.status = 'inprogress';
-    // Логика принятия заказа
   }
   
   public declineOrder(order: any) {
@@ -79,13 +82,9 @@ export class OrdersComponent {
     if (this.spesialistOrder && this.spesialistOrder.id === order.id) {
       this.spesialistOrder = undefined;
     }
-    
-    // Здесь можно добавить вызов API для фактического удаления на сервере
-    // this.orderSharedService.deleteOrder(order.id).subscribe();
   }
   
   public completeOrder(order: any) {
     order.status = 'completed';
-    // Логика завершения заказа
   }
 }

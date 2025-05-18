@@ -1,13 +1,12 @@
 <div *ngIf="client" class="surface-card p-4 shadow-2 border-round-xl w-6 mx-auto mt-5">
-  <!-- Профиль пользователя -->
   <div class="flex justify-content-between">
     <div class="flex align-items-center justify-content-between gap-4 mb-4">
       <img [src]="client.avatar[0]" class="border-circle" style="width: 96px; height: 96px; object-fit: cover;">
       <div>
-        <div class="text-2xl font-bold mb-1">{{ client.surname }} {{ client.name }} {{ client.patronymic }}</div>
+        <div class="text-2xl font-bold mb-1">{{ client.login }}</div>
         <div class="flex align-items-center text-color-secondary">
-          <i class="pi pi-map-marker text-primary mr-2"></i>
-          <span>{{ client.location }}</span>
+          <i class="pi pi-envelope text-primary mr-2"></i>
+          <span>{{ client.email }}</span>
         </div>
       </div>
     </div>
@@ -24,9 +23,8 @@
     </div>
   </div>
 
-  <!-- История заказов -->
   <div>
-    <h3 class="mb-3">История заказов</h3>
+    <h3 class="mb-3">История заявок</h3>
     <p-table 
       [value]="orders" 
       responsiveLayout="scroll"
@@ -63,7 +61,6 @@
   </div>
 </div>
 
-<!-- Диалог оставления отзыва -->
 <p-dialog [modal]="true" [(visible)]="displayReviewDialog" header="Оставить отзыв" [style]="{width: '50vw'}">
   <div class="flex flex-column gap-3">
     <div>

@@ -92,10 +92,10 @@ export class ClientProfilePageComponent implements OnInit {
 
   public getStatusLabel(status: string): string {
     switch (status) {
-      case 'canceled': return 'Отменен';
+      case 'canceled': return 'Отменена';
       case 'inprogress': return 'В процессе';
-      case 'completed': return 'Завершённый';
-      case 'new': return 'Новый';
+      case 'completed': return 'Завершённая';
+      case 'new': return 'Новоя';
       default: return '';
     }
   }

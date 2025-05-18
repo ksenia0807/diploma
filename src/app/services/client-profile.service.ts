@@ -15,7 +15,8 @@ export class ClientProfileService {
         name: 'Ксения',
         surname: 'Кадырова',
         patronymic: 'Дамировна',
-        location: 'г. Москва'
+        email: 'kadirovak@mail.ru',
+        login: 'ksenia0807'
     },
     {
       id: 22,
@@ -23,7 +24,8 @@ export class ClientProfileService {
         name: 'Алексей',
         surname: 'Власов',
         patronymic: 'Игоревич',
-        location: 'г. Москва'
+        email: 'г. Москва',
+        login: 'jieha'
     },
   ];
 

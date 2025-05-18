@@ -4,5 +4,6 @@ export interface Client {
   surname: string;
   patronymic: string;
   avatar: string[];
-  location: string;
+  email: string;
+  login: string;
 }
