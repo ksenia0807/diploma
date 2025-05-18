@@ -193,7 +193,7 @@ const specialists = [
       id: 10,
       title: 'Организация мероприятий',
       rating: 4.2,
-      photos: ['assets/event1.jpg', 'assets/event2.jpg'],
+      photos: ['assets/event1.jpg', 'assets/event2.jpg', 'assets/event3.jpg'],
       shortDescription: 'Проведение свадеб, корпоративов, дней рождения. Полный цикл: от идеи до реализации.',
       fullDescription: 'Организую мероприятия под ключ: подбор площадки, кейтеринг, ведущие, декор, фото/видеосъёмка. Учитываю пожелания и бюджет. Опыт — 7 лет, 100+ успешных событий.',
       location: 'г. Сочи',
