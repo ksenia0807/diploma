@@ -1,5 +1,3 @@
-const { Password } = require("primeng/password");
-
 var clientsProfiles = [
   {
     id: 2003,

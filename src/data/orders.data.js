@@ -37,7 +37,7 @@ var orders = [
     },
     {
       id: 4,
-      specialistId: 11,
+      specialistId: 33,
       customerId: 22,
       title: 'Химчистка',
       jobDescription: 'Химчистка дивана',

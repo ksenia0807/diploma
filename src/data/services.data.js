@@ -37,7 +37,7 @@ var services = [
     },
     {
       id: 4,
-      specialistId: 11,
+      specialistId: 33,
       title: 'Химчистка',
       photos: ['assets/dryclean1.jpg', 'assets/dryclean2.jpg'],
       location: 'г. Санкт-Петербург',
