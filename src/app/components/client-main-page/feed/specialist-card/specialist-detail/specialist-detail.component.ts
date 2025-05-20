@@ -9,7 +9,8 @@ import { ClientProfileService } from 'src/app/services/client-profile.service';
 import { Specialist } from 'src/app/models/specialist.model';
 import { Service } from 'src/app/models/service.model';
 import { SpecialistProfileService } from 'src/app/services/specialist-profile.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, map, switchMap } from 'rxjs';
+import { ReviewService } from 'src/app/services/review.service';
 
 
 @Component({
@@ -32,33 +33,48 @@ export class SpecialistDetailComponent implements OnInit{
     private specialistService: SpecialistService,
     private specialistProfileService: SpecialistProfileService,
     private clientProfileService: ClientProfileService,
+    private reviewService: ReviewService
   ) {
   }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    
-    // Получаем данные о сервисе и специалисте параллельно
+    this.loadData(id);
+  }
+
+  private loadData(serviceId: number) {
     forkJoin([
-      this.specialistService.getServiceById(id),
+      this.specialistService.getServiceById(serviceId),
       this.specialistProfileService.getSpecialistProfiles()
-    ]).subscribe({
-      next: ([service, specialists]) => {
+    ]).pipe(
+      switchMap(([service, specialists]) => {
         this.service = service;
+        const specialist = specialists.find(sp => sp.id === service?.specialistId);
         
-        // Находим специалиста по specialistId из сервиса
-        if (service) {
-          this.specialist = specialists.find(sp => sp.id === service.specialistId);
+        if (!specialist) {
+          throw new Error('Специалист не найден');
         }
-        
+
+        return this.reviewService.getAverageRating(specialist.id).pipe(
+          map(rating => {
+            return {
+              service,
+              specialist: { ...specialist, rating }
+            };
+          })
+        );
+      })
+    ).subscribe({
+      next: ({ service, specialist }) => {
+        this.service = service;
+        this.specialist = {
+          ...specialist,
+          rating: Number(specialist.rating)
+        };
         this.loading = false;
-        
-        if (!service || !this.specialist) {
-          this.error = 'Данные не найдены';
-        }
       },
-      error: () => {
-        this.error = 'Ошибка загрузки данных';
+      error: (err) => {
+        this.error = err.message || 'Ошибка загрузки данных';
         this.loading = false;
       }
     });

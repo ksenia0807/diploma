@@ -23,6 +23,9 @@ export class SpecialistProfileService {
   }
 
   updateSpecialistRating(id: number, rating: number): Observable<Specialist> {
-    return this.http.patch<Specialist>(`/api/specialistsProfiles/${id}`, { rating });
+  return this.http.patch<Specialist>(
+    `/api/specialistsProfiles/${id}/rating`, 
+    { rating }
+  );
   }
 }

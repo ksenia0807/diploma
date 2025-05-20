@@ -32,7 +32,7 @@ app.get('/api/specialistsProfiles', (req, res) => {
   res.json(specialistsProfiles);
 });
 
-app.patch('/api/specialistsProfiles/:id', (req, res) => {
+app.patch('/api/specialistsProfiles/:id/rating', (req, res) => {
   const specialistId = parseInt(req.params.id);
   const { rating } = req.body;
   

@@ -18,7 +18,7 @@
     
     <div>
       <h1>{{ service.title }}</h1>
-      <h2>Рейтинг специалиста {{ specialist.rating}}</h2>
+      <h2>Рейтинг специалиста {{ specialist.rating | number:'1.1-1' }}</h2>
       <p>{{ specialist.about }}</p>
   
       <div class="flex align-items-center gap-1">

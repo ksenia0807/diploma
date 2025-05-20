@@ -23,7 +23,7 @@ import { ReviewService } from 'src/app/services/review.service';
 })
 export class SpecialistCardComponent {
 
-   services: (Service & { specialist?: Specialist, rating?: number })[] = [];
+  services: (Service & { specialist?: Specialist, rating?: number })[] = [];
 
   constructor(
     private router: Router,
