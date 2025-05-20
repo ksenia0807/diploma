@@ -7,7 +7,8 @@ import { SpecialistService } from 'src/app/services/specialist.service';
 import { Service } from 'src/app/models/service.model';
 import { Specialist } from 'src/app/models/specialist.model';
 import { SpecialistProfileService } from 'src/app/services/specialist-profile.service';
-import { forkJoin, map } from 'rxjs';
+import { forkJoin, map, switchMap } from 'rxjs';
+import { ReviewService } from 'src/app/services/review.service';
 
 @Component({
   selector: 'app-specialist-card',
@@ -22,12 +23,13 @@ import { forkJoin, map } from 'rxjs';
 })
 export class SpecialistCardComponent {
 
-  services: (Service & { specialist?: Specialist })[] = [];
+   services: (Service & { specialist?: Specialist, rating?: number })[] = [];
 
   constructor(
     private router: Router,
     private specialistService: SpecialistService,
-    private specialistProfileService: SpecialistProfileService
+    private specialistProfileService: SpecialistProfileService,
+    private reviewService: ReviewService
   ) {
     this.loadServices();
   }
@@ -37,7 +39,20 @@ export class SpecialistCardComponent {
       this.specialistService.getServices(),
       this.specialistProfileService.getSpecialistProfiles()
     ]).pipe(
-      map(([services, specialists]) => {
+      switchMap(([services, specialists]) => {
+        const ratingRequests = specialists.map(specialist => 
+          this.reviewService.getAverageRating(specialist.id).pipe(
+            map(rating => ({ ...specialist, rating }))
+          )
+        );
+        return forkJoin(ratingRequests).pipe(
+          map(updatedSpecialists => ({
+            services,
+            specialists: updatedSpecialists
+          }))
+        );
+      }),
+      map(({services, specialists}) => {
         return services.map(service => ({
           ...service,
           specialist: specialists.find(sp => sp.id === service.specialistId)
@@ -47,11 +62,26 @@ export class SpecialistCardComponent {
       next: (servicesWithSpecialists) => {
         this.services = servicesWithSpecialists;
       },
+      error: (err) => {
+        console.error('Ошибка загрузки данных:', err);
+      }
     });
   }
 
-  public openCard(services: Service) {
-    this.router.navigate(['/service', services.specialistId, services.id]);
+  public openCard(service: Service) {
+    if (service.specialistId) {
+      this.reviewService.updateSpecialistRating(service.specialistId).subscribe({
+        next: () => {
+          this.router.navigate(['/service', service.specialistId, service.id]);
+        },
+        error: (err) => {
+          console.error('Ошибка обновления рейтинга:', err);
+          this.router.navigate(['/service', service.specialistId, service.id]);
+        }
+      });
+    } else {
+      this.router.navigate(['/service', service.specialistId, service.id]);
+    }
   }
 
 }

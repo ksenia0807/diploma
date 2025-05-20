@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { Review } from '../models/review.model';
 
 @Injectable({
@@ -36,5 +36,11 @@ export class ReviewService {
     );
   }
 
-  
+  updateSpecialistRating(specialistId: number): Observable<number> {
+    return this.getAverageRating(specialistId).pipe(
+      switchMap(rating => {
+        return this.http.patch<number>(`/api/specialistsProfiles/${specialistId}/rating`, { rating });
+      })
+    );
+  }
 }

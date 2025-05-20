@@ -21,4 +21,8 @@ export class SpecialistProfileService {
       map(specialistProfiles => specialistProfiles.find(sp => sp.id === id))
     );
   }
+
+  updateSpecialistRating(id: number, rating: number): Observable<Specialist> {
+    return this.http.patch<Specialist>(`/api/specialistsProfiles/${id}`, { rating });
+  }
 }

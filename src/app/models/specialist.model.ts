@@ -6,7 +6,7 @@ export interface Specialist {
   name: string;
   surname: string;
   patronymic: string;
-  rating: Number;
+  rating: number;
   email: string;
   phone: string;
   location: string;

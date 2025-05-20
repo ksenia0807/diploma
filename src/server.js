@@ -32,6 +32,20 @@ app.get('/api/specialistsProfiles', (req, res) => {
   res.json(specialistsProfiles);
 });
 
+app.patch('/api/specialistsProfiles/:id', (req, res) => {
+  const specialistId = parseInt(req.params.id);
+  const { rating } = req.body;
+  
+  const specialistIndex = specialistsProfiles.findIndex(sp => sp.id === specialistId);
+  
+  if (specialistIndex !== -1) {
+    specialistsProfiles[specialistIndex].rating = rating;
+    res.json(specialistsProfiles[specialistIndex]);
+  } else {
+    res.status(404).send('Специалист не найден');
+  }
+});
+
 app.get('/api/reviews', (req, res) => {
   const specialistId = parseInt(req.query.specialistId);
   
