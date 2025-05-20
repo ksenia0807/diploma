@@ -11,11 +11,9 @@ import { SpecialistReviewsComponent } from './components/specilaist-profile-page
 
 const routes: Routes = [
   { path: 'auth', component: AuthPageComponent },
-  // { path: 'profile', component: ClientProfilePageComponent, canActivate: [AuthGuard] },
-  // { path: '', redirectTo: 'profile', pathMatch: 'full' }
-
-  // { path: '', component: ClientMainPageComponent },
-  { path: '', component: SpecialistMainPageComponent },
+  // { path: 'reg', component: RegPageComponent },
+  { path: 'client-page', component: ClientMainPageComponent },
+  { path: 'specialist-page', component: SpecialistMainPageComponent },
   { path: 'client/:id', component: ClientProfilePageComponent },
   { path: 'specialist-profile/:id', component: SpecialistProfilePageComponent },
   { path: 'specialist-reviews/:id', component: SpecialistReviewsComponent },
