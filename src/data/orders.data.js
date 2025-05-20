@@ -2,7 +2,7 @@ var orders = [
     {
       id: 1,
       specialistId: 11,
-      customerId: 11,
+      customerId: 2003,
       title: 'Уборка помещений',
       jobDescription: 'Генеральная уборка квартиры площадью 40 кв.м.',
       price: 2500,
@@ -14,7 +14,7 @@ var orders = [
     {
       id: 2,
       specialistId: 11,
-      customerId: 11,
+      customerId: 2003,
       title: 'Услуги сантехника',
       jobDescription: 'Замена сантехники и плитки',
       price: 10000,
@@ -26,7 +26,7 @@ var orders = [
     {
       id: 3,
       specialistId: 11,
-      customerId: 22,
+      customerId: 2003,
       title: 'Перевозка',
       jobDescription: 'Доставка продуктов из магазина',
       price: 150,
@@ -38,7 +38,7 @@ var orders = [
     {
       id: 4,
       specialistId: 33,
-      customerId: 22,
+      customerId: 2003,
       title: 'Химчистка',
       jobDescription: 'Химчистка дивана',
       price: 3500,
@@ -50,7 +50,7 @@ var orders = [
     {
       id: 5,
       specialistId: 22,
-      customerId: 22,
+      customerId: 2003,
       title: 'Благоустройство',
       jobDescription: 'Усадка газона',
       price: 3000,

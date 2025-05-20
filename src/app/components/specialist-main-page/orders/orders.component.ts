@@ -68,7 +68,12 @@ export class OrdersComponent implements OnInit{
     Адрес: <b>${order.address}</b>.<br>
     Дата: <b>${order.date}</b><br>
     Время: <b>${order.time}</b><br>
-    Цена: <b>${order.price}</b>.`;
+    Цена: <b>${order.price}</b>`;
+  }
+
+  public getOrderCustomer(order: any): string {
+    return `Клиент: <b>${order.clientLogin}</b><br>
+      Телефон: <b>${order.clientPhone}</b>`;
   }
   
   public getStatusLabel(status: string): string {

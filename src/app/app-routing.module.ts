@@ -14,8 +14,6 @@ const routes: Routes = [
   // { path: 'reg', component: RegPageComponent },
   { path: 'client-page/:id', component: ClientMainPageComponent },
   { path: 'specialist-page/:id', component: SpecialistMainPageComponent },
-  { path: '', component: ClientMainPageComponent },
-  { path: '', component: SpecialistMainPageComponent },
   { path: 'client/:id', component: ClientProfilePageComponent },
   { path: 'specialist-profile/:id', component: SpecialistProfilePageComponent },
   { path: 'specialist-reviews/:id', component: SpecialistReviewsComponent },
