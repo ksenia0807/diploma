@@ -19,6 +19,7 @@ import { Specialist } from 'src/app/models/specialist.model';
 import { Work } from 'src/app/models/work.model';
 import { Service } from 'src/app/models/service.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { ReviewService } from 'src/app/services/review.service';
 
 @Component({
   selector: 'app-specialist-profile-page',
@@ -45,10 +46,10 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SpecialistProfilePageComponent implements OnInit{
 
   specialist?: Specialist;
-
+  rating: number = 5;
+  reviewsCount = 0;
   editMode = false;
   specialistForm: FormGroup;
-
   displayServiceDialog = false;
   serviceForm: FormGroup;
   uploadedFiles: any[] = [];
@@ -58,6 +59,7 @@ export class SpecialistProfilePageComponent implements OnInit{
     private route: ActivatedRoute,
     private router: Router,
     private specialistProfileService: SpecialistProfileService,
+    private reviewService: ReviewService,
     private fb: FormBuilder,
     private messageService: MessageService,
     private authService: AuthService
@@ -83,8 +85,29 @@ export class SpecialistProfilePageComponent implements OnInit{
     this.specialistProfileService.getSpecialistProfileById(userId).subscribe({
     next: (spec) => {
       this.specialist = spec;
+      this.loadRating();
+      this.loadReviewCount();
     },
     });
+  }
+
+  private loadRating() {
+    if (this.specialist?.id) {
+      this.reviewService.getAverageRating(this.specialist.id).subscribe(rating => {
+        this.rating = rating;
+        if (this.specialist) {
+          this.specialist.rating = rating;
+        }
+      });
+    }
+  }
+
+  private loadReviewCount() {
+    if (this.specialist?.id) {
+      this.reviewService.getReviewCount(this.specialist.id).subscribe(rc => {
+        this.reviewsCount = rc;
+      });
+    }
   }
 
   toggleEditMode() {
