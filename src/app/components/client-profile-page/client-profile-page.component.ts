@@ -33,7 +33,7 @@ export class ClientProfilePageComponent implements OnInit {
 
     client?: Client;
     order?: Order;
-    orders: Order[] = [];
+    clientOrders: Order[] = [];
     displayReviewDialog = false;
     selectedOrder?: Order;
     newReview = {
@@ -54,10 +54,17 @@ export class ClientProfilePageComponent implements OnInit {
     const userId = Number(this.route.snapshot.paramMap.get('id'));
     
     this.clientProfileService.getClientById(userId).subscribe({
-      next: (cli) => this.client = cli
+      next: (client) => {
+        this.client = client;
+        this.loadClientOrders(userId); 
+      }
     });
+  }
 
-    this.orderService.getSpecialistOrders().subscribe(data => this.orders = data);
+  private loadClientOrders(clientId: number) {
+    this.orderService.getSpecialistOrders().subscribe(allOrders => {
+      this.clientOrders = allOrders.filter(order => order.customerId === clientId);
+    });
   }
 
   onRowSelect(order: Order) {

@@ -50,7 +50,7 @@ var orders = [
     {
       id: 5,
       specialistId: 22,
-      customerId: 2003,
+      customerId: 2000,
       title: 'Благоустройство',
       jobDescription: 'Усадка газона',
       price: 3000,
