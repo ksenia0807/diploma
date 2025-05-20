@@ -12,4 +12,6 @@ export interface Specialist {
   location: string;
   about: string;
   services: Service[];
+  login: string;
+  password: string;
 }

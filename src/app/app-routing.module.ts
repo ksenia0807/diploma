@@ -12,8 +12,10 @@ import { SpecialistReviewsComponent } from './components/specilaist-profile-page
 const routes: Routes = [
   { path: 'auth', component: AuthPageComponent },
   // { path: 'reg', component: RegPageComponent },
-  { path: '', component: ClientMainPageComponent },
-  { path: 'specialist-page', component: SpecialistMainPageComponent },
+  // { path: 'client-page', component: ClientMainPageComponent },
+  // { path: 'specialist-page', component: SpecialistMainPageComponent },
+  // { path: '', component: ClientMainPageComponent },
+  { path: '', component: SpecialistMainPageComponent },
   { path: 'client/:id', component: ClientProfilePageComponent },
   { path: 'specialist-profile/:id', component: SpecialistProfilePageComponent },
   { path: 'specialist-reviews/:id', component: SpecialistReviewsComponent },
