@@ -12,12 +12,12 @@ export class SpecialistService {
 
   constructor(private http: HttpClient) {}
   
-  public getSpecialists(): Observable<Service[]> {
+  public getServices(): Observable<Service[]> {
     return this.http.get<Service[]>('/api/services');
   }
 
-  public getSpecialistById(id: number): Observable<Service | undefined> {
-    return this.getSpecialists().pipe(
+  public getServiceById(id: number): Observable<Service | undefined> {
+    return this. getServices().pipe(
       map(services => services.find(s => s.id === id))
     );
   }

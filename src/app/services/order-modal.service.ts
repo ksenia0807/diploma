@@ -14,18 +14,11 @@ export class OrderModalService {
         private readonly _dialog: DialogService,
     ) {}
 
-    public open(
-        services: 
-        { id?: number;
-        title: string;
-        description: string;
-        works: Work[];
-        location: string;
-        photos: string[]; }[]) {
+    public open(works: Work[]) {
         this._ref = this._dialog.open(OrderModalComponent, {
             maskStyleClass: 'responsive-modal-wrapper',
             header: "Создание заявки",
-            data: { services },
+            data: { works },
             style: {
                
             },

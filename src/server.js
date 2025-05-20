@@ -77,7 +77,7 @@ const services = [
     },
     {
       id: 2,
-      specialistId: 44,
+      specialistId: 11,
       title: 'Ремонт и обслуживание автомобилей',
       photos: ['assets/car1.jpg', 'assets/car2.jpg', 'assets/car3.jpg'],
       location: 'г. Новосибирск',
@@ -184,7 +184,7 @@ const services = [
     }
   ];
 
-app.get('/api/specialists', (req, res) => {
+app.get('/api/services', (req, res) => {
   res.json(services);
 });
 

@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
-import { Specialist, SpecialistService } from 'src/app/services/specialist.service';
+import { SpecialistService } from 'src/app/services/specialist.service';
+import { Service } from 'src/app/models/service.model';
+import { Specialist } from 'src/app/models/specialist.model';
+import { SpecialistProfileService } from 'src/app/services/specialist-profile.service';
+import { forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-specialist-card',
@@ -18,23 +22,36 @@ import { Specialist, SpecialistService } from 'src/app/services/specialist.servi
 })
 export class SpecialistCardComponent {
 
-  specialists: Specialist[] = [];
+  services: (Service & { specialist?: Specialist })[] = [];
 
   constructor(
     private router: Router,
-    private specialistService: SpecialistService
+    private specialistService: SpecialistService,
+    private specialistProfileService: SpecialistProfileService
   ) {
-    this.loadSpecialists();
+    this.loadServices();
   }
 
-  public loadSpecialists() {
-    this.specialistService.getSpecialists().subscribe(data => {
-      this.specialists = data;
+  public loadServices() {
+    forkJoin([
+      this.specialistService.getServices(),
+      this.specialistProfileService.getSpecialistProfiles()
+    ]).pipe(
+      map(([services, specialists]) => {
+        return services.map(service => ({
+          ...service,
+          specialist: specialists.find(sp => sp.id === service.specialistId)
+        }));
+      })
+    ).subscribe({
+      next: (servicesWithSpecialists) => {
+        this.services = servicesWithSpecialists;
+      },
     });
   }
 
-  public openCard(specialist: Specialist) {
-    this.router.navigate(['/specialist', specialist.id]);
+  public openCard(services: Service) {
+    this.router.navigate(['/service', services.specialistId, services.id]);
   }
 
 }

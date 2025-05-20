@@ -9,6 +9,7 @@ import { ClientProfileService } from 'src/app/services/client-profile.service';
 import { Specialist } from 'src/app/models/specialist.model';
 import { Service } from 'src/app/models/service.model';
 import { SpecialistProfileService } from 'src/app/services/specialist-profile.service';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -36,12 +37,24 @@ export class SpecialistDetailComponent implements OnInit{
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.specialistProfileService.getSpecialistProfileById(id).subscribe({
-      next: (spec) => {
-        this.specialist = spec;
+    
+    // Получаем данные о сервисе и специалисте параллельно
+    forkJoin([
+      this.specialistService.getServiceById(id),
+      this.specialistProfileService.getSpecialistProfiles()
+    ]).subscribe({
+      next: ([service, specialists]) => {
+        this.service = service;
+        
+        // Находим специалиста по specialistId из сервиса
+        if (service) {
+          this.specialist = specialists.find(sp => sp.id === service.specialistId);
+        }
+        
         this.loading = false;
-        if (!spec) {
-          this.error = 'Специалист не найден';
+        
+        if (!service || !this.specialist) {
+          this.error = 'Данные не найдены';
         }
       },
       error: () => {
@@ -49,13 +62,12 @@ export class SpecialistDetailComponent implements OnInit{
         this.loading = false;
       }
     });
-
   }
 
   private readonly _orderDialogService = inject(OrderModalService);
 
   public showDialog() {
-    this._orderDialogService.open(this.specialist?.services ?? []);
+    this._orderDialogService.open(this.service?.works ?? []);
   }
 
 }
