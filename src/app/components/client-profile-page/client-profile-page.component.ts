@@ -53,7 +53,7 @@ export class ClientProfilePageComponent implements OnInit {
   ngOnInit() {
     const userId = Number(this.route.snapshot.paramMap.get('id'));
     
-    this.clientProfileService.getUserById(userId).subscribe({
+    this.clientProfileService.getClientById(userId).subscribe({
       next: (cli) => this.client = cli
     });
 

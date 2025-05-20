@@ -54,15 +54,15 @@ function authenticateToken(req, res, next) {
 }
 
 // Защищённый маршрут
-app.get('/api/profile', authenticateToken, (req, res) => {
-  res.json({ message: `Привет, ${req.user.username}! Это защищённый профиль.` });
+app.get('/api/client-page', authenticateToken, (req, res) => {
+  res.json();
 });
 
 app.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);
 });
 
-const services = [
+var services = [
     {
       id: 1,
       specialistId: 33,
@@ -304,7 +304,7 @@ app.get('/api/specialistsProfiles', (req, res) => {
   res.json(specialistsProfiles);
 });
 
-const reviews = [
+var reviews = [
   {
     orderId: 1,
     specialistId: 11, 
@@ -354,5 +354,21 @@ app.post('/api/reviews', (req, res) => {
   
   reviews.push(review);
   res.status(201).json(review);
+});
+
+var clientsProfiles = [
+  {
+    id: 11,
+    avatar: ['assets/avatar1.jpg'],
+    name: 'Ксения',
+    surname: 'Кадырова',
+    patronymic: 'Дамировна',
+    email: 'kadirovak@mail.ru',
+    login: 'ksenia0807'
+  },
+];
+
+app.get('/api/clientsProfiles', (req, res) => {
+  res.json(clientsProfiles);
 });
 

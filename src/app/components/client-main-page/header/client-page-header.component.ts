@@ -39,7 +39,7 @@ export class ClientPageHeaderComponent implements OnInit{
   clients: Client[] = [];
 
   ngOnInit() {
-    this.clientProfileService.getUsers().subscribe(users => {
+    this.clientProfileService.getClients().subscribe(users => {
       if (users.length > 0) {
         this.user = users[0];  
       }
@@ -130,7 +130,7 @@ export class ClientPageHeaderComponent implements OnInit{
    }
   
   public loadUsers() {
-    this.clientProfileService.getUsers().subscribe(data => {
+    this.clientProfileService.getClients().subscribe(data => {
       this.clients = data;
     });
   }
