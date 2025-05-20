@@ -21,7 +21,6 @@ export class SpecialistReviewsComponent implements OnInit{
 
   specialistId!: number;
   specialist?: Specialist;
-  specialists: Specialist[] = [];
   reviews: Review[] = [];
 
   constructor(
@@ -40,7 +39,5 @@ export class SpecialistReviewsComponent implements OnInit{
     this.reviewService.getReviewsBySpecialist(this.specialistId).subscribe(reviews => {
       this.reviews = reviews;
     });
-
-    this.specialistProfileService.getSpecialistProfiles().subscribe(data => this.specialists = data);
   }
 }
