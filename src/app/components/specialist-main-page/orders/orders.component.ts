@@ -95,6 +95,7 @@ export class OrdersComponent implements OnInit{
   
   public declineOrder(order: any) {
     this.specialistOrders = this.specialistOrders.filter(o => o.id !== order.id);
+    this.ordersWithClientInfo = this.ordersWithClientInfo.filter(o => o.id !== order.id);
     
     if (this.specialistOrder && this.specialistOrder.id === order.id) {
       this.specialistOrder = undefined;

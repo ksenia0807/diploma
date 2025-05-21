@@ -60,7 +60,7 @@ var orders = [
       status: 'completed'
     },
     {
-      id: 5,
+      id: 6,
       specialistId: 11,
       customerId: 2000,
       title: 'Благоустройство',
@@ -70,7 +70,19 @@ var orders = [
       date: '09.05.2025',
       time: '15:00',
       status: 'new'
-    }
+    },
+    {
+      id: 7,
+      specialistId: 11,
+      customerId: 2003,
+      title: 'Благоустройство',
+      jobDescription: 'Защита деревьев от насекомых',
+      price: 2500,
+      address: 'ул. Ленина, д. 10',
+      date: '05.05.2025',
+      time: '15:00',
+      status: 'new'
+    },
 ];
 
 module.exports = orders;
