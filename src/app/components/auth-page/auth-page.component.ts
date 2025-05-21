@@ -82,5 +82,9 @@ export class AuthPageComponent implements OnInit{
       alert('Неверный логин или пароль');
     }
   }
+
+  registration() {
+    this.router.navigate(['/reg']);
+  }
   
 }

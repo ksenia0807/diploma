@@ -79,3 +79,41 @@ app.get('/api/clientsProfiles', (req, res) => {
   res.json(clientsProfiles);
 });
 
+app.post('/api/clientsProfiles', (req, res) => {
+  const { email, login, password } = req.body;
+
+  if (!email || !login || !password) {
+    return res.status(400).json({ 
+      error: 'Необходимо указать email, логин и пароль' 
+    });
+  }
+ 
+  const existingClient = clientsProfiles.find(
+    client => client.email === email || client.login === login
+  );
+  
+  if (existingClient) {
+    return res.status(409).json({ 
+      error: 'Пользователь с таким email или логином уже существует' 
+    });
+  }
+
+  const newClient = {
+    id: clientsProfiles.length > 0 
+      ? Math.max(...clientsProfiles.map(c => c.id)) + 1 
+      : 1,
+    email,
+    login,
+    password, 
+    avatar: ['assets/default-avatar.jpg'],
+    phone: '',
+    createdAt: new Date().toISOString()
+  };
+ 
+  clientsProfiles.push(newClient);
+ 
+  const responseClient = { ...newClient };
+  delete responseClient.password;
+  
+  res.status(201).json(responseClient);
+});

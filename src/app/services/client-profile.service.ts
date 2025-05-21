@@ -20,4 +20,8 @@ export class ClientProfileService {
       map(users => users.find(u => u.id === id))
     );
   }
+
+  public addClient(client: Client): Observable<Client> {
+    return this.http.post<Client>('/api/clientsProfiles', client);
+  }
 }
