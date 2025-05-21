@@ -37,6 +37,7 @@ import { ToastModule } from 'primeng/toast';
 export class RegPageComponent {
 
   email: string = '';
+  phone: string = '';
   username: string = '';
   password: string = '';
   confirmPassword: string = '';
@@ -61,7 +62,7 @@ export class RegPageComponent {
       id: this.generateId(), 
       avatar: ['assets/default-avatar.jpg'], 
       email: this.email,
-      phone: '', 
+      phone: this.phone, 
       login: this.username,
       password: this.password
     };

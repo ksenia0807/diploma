@@ -80,9 +80,9 @@ app.get('/api/clientsProfiles', (req, res) => {
 });
 
 app.post('/api/clientsProfiles', (req, res) => {
-  const { email, login, password } = req.body;
+  const { email, phone, login, password } = req.body;
 
-  if (!email || !login || !password) {
+  if (!email || !phone || !login || !password) {
     return res.status(400).json({ 
       error: 'Необходимо указать email, логин и пароль' 
     });

@@ -4,9 +4,11 @@
       <img [src]="client.avatar[0]" class="border-circle" style="width: 96px; height: 96px; object-fit: cover;">
       <div>
         <div class="text-2xl font-bold mb-1">{{ client.login }}</div>
-        <div class="flex align-items-center text-color-secondary">
-          <i class="pi pi-envelope text-primary mr-2"></i>
-          <span>{{ client.email }}</span>
+        <div class="flex flex-column align-items-center text-color-secondary">
+          <div><i class="pi pi-envelope text-primary mr-2"></i>
+          <span>{{ client.email }}</span></div>
+          <div><i class="pi pi-phone text-primary mr-2"></i>
+          <span>{{ client.phone }}</span></div>
         </div>
       </div>
     </div>
