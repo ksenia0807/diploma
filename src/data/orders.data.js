@@ -57,6 +57,18 @@ var orders = [
       address: 'ул. Пушкина, д. 15',
       date: '07.05.2025',
       time: '12:00',
+      status: 'completed'
+    },
+    {
+      id: 5,
+      specialistId: 11,
+      customerId: 2000,
+      title: 'Благоустройство',
+      jobDescription: 'Усадка газона',
+      price: 3000,
+      address: 'ул. Пушкина, д. 15',
+      date: '09.05.2025',
+      time: '15:00',
       status: 'new'
     }
 ];

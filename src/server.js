@@ -84,7 +84,7 @@ app.post('/api/clientsProfiles', (req, res) => {
 
   if (!email || !phone || !login || !password) {
     return res.status(400).json({ 
-      error: 'Необходимо указать email, логин и пароль' 
+      error: 'Необходимо указать email, телефон, логин и пароль' 
     });
   }
  
