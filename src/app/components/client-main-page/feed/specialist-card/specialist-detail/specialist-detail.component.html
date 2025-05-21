@@ -1,6 +1,6 @@
-<div class="flex flex-row gap-7" *ngIf="specialist">
+<div class="flex flex-row gap-7" *ngIf="service && specialist">
     <p-galleria 
-    [value]="specialist.photos"
+    [value]="service.photos"
     [showThumbnails]="true"
     [circular]="true"
     [numVisible]="6"
@@ -17,9 +17,9 @@
     </p-galleria>
     
     <div>
-      <h1>{{ specialist.title }}</h1>
-      <h2>Рейтинг специалиста {{ specialist.rating}}</h2>
-      <p>{{ specialist.fullDescription }}</p>
+      <h1>{{ service.title }}</h1>
+      <h2>Рейтинг специалиста {{ specialist.rating | number:'1.1-1' }}</h2>
+      <p>{{ specialist.about }}</p>
   
       <div class="flex align-items-center gap-1">
         <i class="pi pi-map-marker"></i>
@@ -29,8 +29,8 @@
       <div class="mb-6">
         <h2>Цены на услуги</h2>
         <ul class="flex flex-column gap-3">
-          <li *ngFor="let service of specialist.services">
-            {{ service.name }} - <strong>{{ service.price | number }} ₽</strong>
+          <li *ngFor="let work of service.works">
+            {{ work.name }} - <strong>{{ work.price | number }} ₽</strong>
           </li>
         </ul>
       </div>

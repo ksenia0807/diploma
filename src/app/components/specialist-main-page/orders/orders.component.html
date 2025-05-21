@@ -7,8 +7,9 @@
           <span class="order-status" [ngClass]="order.status">{{ getStatusLabel(order.status) }}</span>
         </div>
       </ng-template>
-    
+
       <p class="description" [innerHTML] = "getOrderDescription(order)"></p>
+      <p class="description" [innerHTML] = "getOrderCustomer(order)"></p>
     
       <ng-template pTemplate="footer">
         <div class="order-actions">

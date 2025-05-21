@@ -18,8 +18,8 @@ import { Specialist } from 'src/app/models/specialist.model';
 })
 export class SpecialistPageHeaderComponent implements OnInit {
 
-  public orderStatus: MenuItem[] | undefined;
-  user?: Specialist;
+  orderStatus: MenuItem[] | undefined;
+  currentSpecialist?: Specialist;
   specialists: Specialist[] = [];
   activeStatus: string = 'new';
 
@@ -39,13 +39,19 @@ export class SpecialistPageHeaderComponent implements OnInit {
     ]
 
     const specialistId = Number(this.route.snapshot.paramMap.get('id'));
-    this.specialistProfileService.getSpecialistProfileById(specialistId).subscribe({
-    next: (o) => {
-      this.user = o;
-    },
-    });
+    this.loadCurrentSpecialist(specialistId);
 
-    this.specialistProfileService.getSpecialistProfiles().subscribe(data => this.specialists = data);
+  }
+
+  private loadCurrentSpecialist(id: number) {
+    this.specialistProfileService.getSpecialistProfileById(id).subscribe({
+      next: (specialist) => {
+        this.currentSpecialist = specialist;
+      },
+      error: () => {
+        console.error('Ошибка загрузки данных специалиста');
+      }
+    });
   }
 
   public changeStatus(status: string) {
@@ -59,8 +65,10 @@ export class SpecialistPageHeaderComponent implements OnInit {
       private specialistProfileService: SpecialistProfileService,
   ) {}
   
-  public openProfile(user: Specialist) {
-    this.router.navigate(['/specialist-profile', user.id]);
+  public openProfile() {
+    if (this.currentSpecialist) {
+      this.router.navigate(['/specialist-profile', this.currentSpecialist.id]);
+    }
   }
   
 }

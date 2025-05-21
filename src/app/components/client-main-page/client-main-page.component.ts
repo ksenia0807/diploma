@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ClientPageHeaderComponent } from "./header/client-page-header.component";
 import { DividerModule } from 'primeng/divider';
 import { FeedComponent } from "./feed/feed.component";
+import { SpecialistCardComponent } from './feed/specialist-card/specialist-card.component';
 
 @Component({
   selector: 'app-client-main-page',
@@ -18,4 +19,9 @@ import { FeedComponent } from "./feed/feed.component";
 })
 export class ClientMainPageComponent {
 
+  @ViewChild(SpecialistCardComponent) specialistCard!: SpecialistCardComponent;
+
+  onFiltersChanged(filters: any) {
+    this.specialistCard.applyFilters(filters);
+  }
 }

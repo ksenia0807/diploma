@@ -1,19 +1,57 @@
 <div class="flex justify-self-center justify-content-center mt-7">
     <p-card [style]="{ width: '600px' }">
         <div class="flex flex-column gap-7 align-items-center">
-            <h1>Вход в систему</h1>
+            <div class="flex flex-column gap-3 align-items-center">
+                <h1>Вход в систему</h1>
+                <h2>Вы клиент или сотрудник предприятия?</h2>
+                <div class="flex flex-wrap gap-3">
+                    <div class="flex align-items-center">
+                        <p-radioButton 
+                            name="role" 
+                            value="client" 
+                            [(ngModel)]="role" 
+                            inputId="client" />
+                        <label for="client" class="ml-2">
+                            Клиент
+                        </label>
+                    </div>
+        
+                    <div class="flex align-items-center">
+                        <p-radioButton 
+                            name="role" 
+                            value="specialist" 
+                            [(ngModel)]="role" 
+                            inputId="specialist" />
+                        <label for="specialist" class="ml-2">
+                            Сотрудник
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
             <div class="auth flex flex-column align-items-center gap-5">
                 <p-floatLabel>
                     <input pInputText id="username" [(ngModel)]="username" required />
                     <label for="username">Имя пользователя</label>
                 </p-floatLabel>
+                
                 <p-floatLabel>
                     <p-password [(ngModel)]="password" [toggleMask]="true" required/>
-                    <label for="username">Пароль</label>
+                    <label for="password">Пароль</label>
                 </p-floatLabel> 
-                <p-button (onClick)="onSubmit()" label="Войти"></p-button> 
+                
+                <p-button 
+                    (onClick)="onSubmit()" 
+                    label="Войти">
+                </p-button>
+                
+                <div class="flex align-items-center gap-2 mt-3">
+                    <span>Нет аккаунта?</span>
+                    <p-button  
+                        label="Зарегистрироваться" 
+                        (onClick)="registration()"></p-button>
+                </div>
             </div>
         </div>
     </p-card>
 </div>
-

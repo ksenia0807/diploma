@@ -1,6 +1,7 @@
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Injectable } from '@angular/core';
 import { OrderModalComponent } from '../components/client-main-page/feed/specialist-card/order-modal/order-modal.component';
+import { Work } from '../models/work.model';
 
 @Injectable({
     providedIn: null,
@@ -13,11 +14,11 @@ export class OrderModalService {
         private readonly _dialog: DialogService,
     ) {}
 
-    public open(services: { name: string; price: number }[]) {
+    public open(works: Work[]) {
         this._ref = this._dialog.open(OrderModalComponent, {
             maskStyleClass: 'responsive-modal-wrapper',
             header: "Создание заявки",
-            data: { services },
+            data: { works },
             style: {
                
             },

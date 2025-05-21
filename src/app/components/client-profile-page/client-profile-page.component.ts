@@ -33,7 +33,8 @@ export class ClientProfilePageComponent implements OnInit {
 
     client?: Client;
     order?: Order;
-    orders: Order[] = [];
+    clientOrders: Order[] = [];
+    currentClientId: number | null = null;
     displayReviewDialog = false;
     selectedOrder?: Order;
     newReview = {
@@ -48,16 +49,25 @@ export class ClientProfilePageComponent implements OnInit {
     private orderService: OrderSharedService,
     private reviewService: ReviewService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.currentClientId = Number(this.route.snapshot.paramMap.get('id'));
+  }
 
   ngOnInit() {
     const userId = Number(this.route.snapshot.paramMap.get('id'));
     
-    this.clientProfileService.getUserById(userId).subscribe({
-      next: (cli) => this.client = cli
+    this.clientProfileService.getClientById(userId).subscribe({
+      next: (client) => {
+        this.client = client;
+        this.loadClientOrders(userId); 
+      }
     });
+  }
 
-    this.orderService.getSpecialistOrders().subscribe(data => this.orders = data);
+  private loadClientOrders(clientId: number) {
+    this.orderService.getSpecialistOrders().subscribe(allOrders => {
+      this.clientOrders = allOrders.filter(order => order.customerId === clientId);
+    });
   }
 
   onRowSelect(order: Order) {

@@ -6,9 +6,12 @@ export interface Specialist {
   name: string;
   surname: string;
   patronymic: string;
+  rating: number;
   email: string;
   phone: string;
   location: string;
   about: string;
   services: Service[];
+  login: string;
+  password: string;
 }

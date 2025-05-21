@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { OrderSharedService } from 'src/app/services/order-shared.service';
 import { ActivatedRoute } from '@angular/router';
 import { Order } from 'src/app/models/order.model';
+import { ClientProfileService } from 'src/app/services/client-profile.service';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -14,32 +16,42 @@ import { Order } from 'src/app/models/order.model';
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss'
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit{
 
   @Input() currentStatus: string = 'new';
 
   public selectedDate: Date | null = null;
-
   public orderVisible = true;
-
-  public spesialistOrders: Order[] = [];
-  public spesialistOrder?: Order;
+  public specialistOrders: Order[] = [];
+  public specialistOrder?: Order;
+  public ordersWithClientInfo: any[] = [];
+  public currentSpecialistId: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private orderSharedService: OrderSharedService,
+    private clientProfileService: ClientProfileService
   ) {}
 
   ngOnInit() {
+    this.currentSpecialistId = Number(this.route.snapshot.paramMap.get('id'));
 
-    const specialistOrderId = Number(this.route.snapshot.paramMap.get('id'));
-    this.orderSharedService.getSpecialistOrderById(specialistOrderId).subscribe({
-    next: (o) => {
-      this.spesialistOrder = o;
-    },
+    forkJoin([
+      this.orderSharedService.getSpecialistOrders(),
+      this.clientProfileService.getClients()
+    ]).subscribe(([orders, clients]) => {
+      this.specialistOrders = orders.filter(order => 
+        order.specialistId === this.currentSpecialistId && order.status !== 'canceled'
+      );
+      this.ordersWithClientInfo = this.specialistOrders.map(order => {
+        const client = clients.find(c => c.id === order.customerId);
+        return {
+          ...order,
+          clientLogin: client?.login || 'Неизвестный клиент',
+          clientPhone: client?.phone || 'Телефон не указан'
+        };
+      });
     });
-
-    this.orderSharedService.getSpecialistOrders().subscribe(data => this.spesialistOrders = data);
   }
 
   public getOrderDate(orderDateString: string): Date {
@@ -48,7 +60,7 @@ export class OrdersComponent {
   }
 
   public getFilteredOrders() {
-    return this.spesialistOrders.filter(order => order.status === this.currentStatus);
+    return this.ordersWithClientInfo.filter(order => order.status === this.currentStatus);
   }
   
   public getOrderDescription(order: any): string {
@@ -56,7 +68,12 @@ export class OrdersComponent {
     Адрес: <b>${order.address}</b>.<br>
     Дата: <b>${order.date}</b><br>
     Время: <b>${order.time}</b><br>
-    Цена: <b>${order.price}</b>.`;
+    Цена: <b>${order.price}</b>`;
+  }
+
+  public getOrderCustomer(order: any): string {
+    return `Клиент: <b>${order.clientLogin}</b><br>
+      Телефон: <b>${order.clientPhone}</b>`;
   }
   
   public getStatusLabel(status: string): string {
@@ -77,10 +94,10 @@ export class OrdersComponent {
   }
   
   public declineOrder(order: any) {
-    this.spesialistOrders = this.spesialistOrders.filter(o => o.id !== order.id);
+    this.specialistOrders = this.specialistOrders.filter(o => o.id !== order.id);
     
-    if (this.spesialistOrder && this.spesialistOrder.id === order.id) {
-      this.spesialistOrder = undefined;
+    if (this.specialistOrder && this.specialistOrder.id === order.id) {
+      this.specialistOrder = undefined;
     }
   }
   

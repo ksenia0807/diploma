@@ -1,0 +1,47 @@
+<div class="flex justify-self-center justify-content-center mt-7">
+    <p-card [style]="{ width: '600px' }">
+        <div class="flex flex-column gap-7 align-items-center">
+            <div class="flex flex-column gap-3 align-items-center">
+                <h1>Регистрация</h1>
+                <h2>Создайте новый аккаунт</h2>
+            </div>
+            
+            <div class="auth flex flex-column align-items-center gap-5">
+                <p-floatLabel>
+                    <input pInputText id="email" [(ngModel)]="email" required />
+                    <label for="email">Email</label>
+                </p-floatLabel>
+                
+                <p-floatLabel>
+                    <input pInputText id="username" [(ngModel)]="username" required />
+                    <label for="username">Имя пользователя</label>
+                </p-floatLabel>
+                
+                <p-floatLabel>
+                    <p-password [(ngModel)]="password" [toggleMask]="true" required [feedback]="true"/>
+                    <label for="password">Пароль</label>
+                </p-floatLabel>
+                
+                <p-floatLabel>
+                    <p-password [(ngModel)]="confirmPassword" [toggleMask]="true" required/>
+                    <label for="confirmPassword">Подтвердите пароль</label>
+                </p-floatLabel>
+
+                <p-button 
+                    (onClick)="onSubmit()" 
+                    label="Зарегистрироваться">
+                </p-button>
+                
+                <div class="flex align-items-center gap-2 mt-3">
+                    <span>Уже есть аккаунт?</span>
+                    <p-button  
+                        label="Авторизоваться" 
+                        (onClick)="authorization()">
+                    </p-button>
+                </div>
+            </div>
+        </div>
+    </p-card>
+</div>
+
+<p-toast></p-toast>

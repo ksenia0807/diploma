@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, shareReplay } from 'rxjs';
+import { BehaviorSubject, delay, map, Observable, of, shareReplay } from 'rxjs';
 import { Order, OrderStatus } from '../models/order.model';
 
 @Injectable({ providedIn: 'root' })
@@ -12,12 +12,20 @@ export class OrderSharedService{
 
   constructor(private http: HttpClient) {
     this.specialistOrders$ = this.getSpecialistOrders().pipe(
-      shareReplay(1) // Кэшируем результат
+      shareReplay(1) 
     );
   }
   
   public getSpecialistOrders(): Observable<Order[]> {
     return this.http.get<Order[]>('/api/specialistsOrders');
+  }
+
+  public getOrdersBySpecialist(specialistId: number): Observable<Order[]> {
+      return this.http.get<Order[]>(`/api/reviews?specialistId=${specialistId}`);
+  }
+
+  public createOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>('/api/specialistsOrders', order);
   }
 
   public getSpecialistOrderById(id: number): Observable<Order | undefined> {
@@ -44,19 +52,9 @@ export class OrderSharedService{
     }
   }
 
-  private formatDate(date: Date): string {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}.${month}.${year}`;
-  }
-
-  getOrdersByDate(date: Date): Observable<Order[]> {
-    const dateStr = this.formatDate(date);
-    
-    return this.http.get<Order[]>('/api/specialistsOrders').pipe(
-      map(orders => orders.filter(order => order.date === dateStr))
-    );
+  updateOrder(order: Order): Observable<Order> {
+    // В реальном приложении здесь будет HTTP-запрос к серверу
+    return of(order).pipe(delay(200)); // Имитация запроса
   }
 
 }

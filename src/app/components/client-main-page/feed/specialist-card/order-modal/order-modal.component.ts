@@ -33,7 +33,7 @@ export class OrderModalComponent implements OnInit {
   private readonly _dialogRef = inject(DynamicDialogRef);
   private readonly _config = inject(DynamicDialogConfig);
 
-  public services: { name: string; price: number }[] = [];
+  public works: { name: string; price: number }[] = [];
 
   public orderForm!: FormGroup;
   public readonly timeOptions = [
@@ -53,7 +53,7 @@ export class OrderModalComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.services = this._config.data?.services ?? [];
+    this.works = this._config.data?.services ?? [];
     this.orderForm = this.fb.group({
       service: [null, Validators.required],
       description: ['', Validators.required],

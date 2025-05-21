@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from "primeng/floatlabel";
@@ -7,7 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { SliderModule } from 'primeng/slider';
 import { ButtonModule } from 'primeng/button';
 import { ClientProfileService } from 'src/app/services/client-profile.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from 'src/app/models/client.model';
 
 interface Service {
@@ -35,15 +35,63 @@ interface CityFilter {
 })
 export class ClientPageHeaderComponent implements OnInit{
 
-  user?: Client;
+  @Output() filtersChanged = new EventEmitter<{
+    city?: string;
+    priceRange?: { min: number; max: number };
+    rating?: number;
+  }>();
+
+  currentClient?: Client;
   clients: Client[] = [];
 
   ngOnInit() {
-    this.clientProfileService.getUsers().subscribe(users => {
-      if (users.length > 0) {
-        this.user = users[0];  
+    const clientId = Number(this.route.snapshot.paramMap.get('id'));
+    this.loadCurrentClient(clientId);
+  }
+
+  private loadCurrentClient(id: number) {
+    this.clientProfileService.getClientById(id).subscribe({
+      next: (client) => {
+        this.currentClient = client;
+      },
+      error: () => {
+        console.error('Ошибка загрузки данных клиента');
       }
     });
+  }
+
+  public applyFilters() {
+    const filters = {
+      city: this.selectedCity?.name,
+      priceRange: this.getPriceRange(),
+      rating: this.getRatingValue()
+    };
+    this.filtersChanged.emit(filters);
+  }
+
+  private getPriceRange() {
+    if (this.priceRange === 'any') return undefined;
+    if (this.priceRange === 'custom') {
+      return { min: this.selectedRange[0], max: this.selectedRange[1] };
+    }
+    if (this.priceRange.includes('-')) {
+      const [min, max] = this.priceRange.split('-').map(Number);
+      return { min, max };
+    }
+    return undefined;
+  }
+
+  private getRatingValue() {
+    if (!this.ratingOption) return undefined;
+    return Number(this.ratingOption);
+  }
+
+  public onPriceChange() {
+    if (this.priceRange === 'custom') {
+      this.showSlider = true;
+    } else {
+      this.applyFilters();
+    }
   }
 
   public readonly services: Service[] = [
@@ -69,7 +117,7 @@ export class ClientPageHeaderComponent implements OnInit{
     { name: 'Нижний Новгород' },
   ];
 
-  public selectedCity!: CityFilter[];
+  public selectedCity?: CityFilter;
 
   public priceRange: string = '';
   public showSlider: boolean = false;
@@ -92,22 +140,17 @@ export class ClientPageHeaderComponent implements OnInit{
 
   public ratingOption: number[] = [];
 
-  public onPriceChange() {
-    if (this.priceRange === 'custom') {
-      if (this.isCustomMode && this.priceRange.includes('-')) {
-        const [min, max] = this.priceRange.split('-').map(Number);
-        this.selectedRange = [min, max];
-      } else {
-        this.selectedRange = [1000, 50000]; 
-      }
-      this.isCustomMode = true;
-      this.showSlider = true;
-    }
+  public applyRange() {
+    this.showSlider = false;
+    this.applyFilters();
   }
 
-  public applyRange() {
-    this.priceRange = `${this.selectedRange[0]}-${this.selectedRange[1]}`;
-    this.showSlider = false;
+  public onCityChange() {
+    this.applyFilters();
+  }
+
+  public onRatingChange() {
+    this.applyFilters();
   }
 
   public getSelectedLabel(): string {
@@ -125,17 +168,12 @@ export class ClientPageHeaderComponent implements OnInit{
   constructor(
     private router: Router,
     private clientProfileService: ClientProfileService,
-  ) {
-      this.loadUsers();
-   }
-  
-  public loadUsers() {
-    this.clientProfileService.getUsers().subscribe(data => {
-      this.clients = data;
-    });
-  }
+    private route: ActivatedRoute,
+  ) {}
 
-  public openProfile(user: Client) {
-    this.router.navigate(['/client', user.id]);
+  public openProfile() {
+    if (this.currentClient) {
+      this.router.navigate(['/client-profile', this.currentClient.id]);
+    }
   }
 }

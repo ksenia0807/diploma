@@ -23,9 +23,22 @@
             border-color: var(--button-text) !important; 
         }
 
+        .p-radiobutton .p-radiobutton-box {
+            border-color: var(--button-text); 
+            
+            &.p-highlight {
+                border-color: var(--slider);
+                background: var(--slider);
+            }
+        }
+
+        .p-radiobutton .p-radiobutton-icon {
+            background-color: #ffffff; /* Цвет галочки */
+        }
+
     }
 
-    h1 {
+    h1, h2 {
         color: var(--title);
     }
 
