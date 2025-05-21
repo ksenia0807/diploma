@@ -112,7 +112,7 @@ export class SpecialistProfilePageComponent implements OnInit{
 
   toggleEditMode() {
     this.editMode = !this.editMode;
-    if (!this.editMode && this.specialist) {
+    if (this.editMode && this.specialist) {  // Изменили условие
       this.specialistForm.patchValue(this.specialist);
     }
   }
