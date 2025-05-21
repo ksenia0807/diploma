@@ -13,6 +13,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { Client } from 'src/app/models/client.model';
 import { Order } from 'src/app/models/order.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-client-profile-page',
@@ -24,10 +26,12 @@ import { AuthService } from 'src/app/services/auth.service';
     DialogModule,
     RatingModule,
     FormsModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ToastModule
   ],
   templateUrl: './client-profile-page.component.html',
-  styleUrl: './client-profile-page.component.scss'
+  styleUrl: './client-profile-page.component.scss',
+  providers: [MessageService]
 })
 export class ClientProfilePageComponent implements OnInit {
 
@@ -48,7 +52,8 @@ export class ClientProfilePageComponent implements OnInit {
     private clientProfileService: ClientProfileService,
     private orderService: OrderSharedService,
     private reviewService: ReviewService,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService,
   ) {
     this.currentClientId = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -92,10 +97,25 @@ export class ClientProfilePageComponent implements OnInit {
 
     this.reviewService.createReview(review).subscribe({
       next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Отзыв отправлен',
+          detail: 'Ваш отзыв успешно опубликован',
+          life: 3000
+        });
+        
         this.displayReviewDialog = false;
         this.newReview = { rating: 0, comment: '' };
       },
-      error: (err) => console.error('Ошибка при отправке отзыва:', err)
+      error: (err) => {
+        console.error('Ошибка при отправке отзыва:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: 'Не удалось отправить отзыв',
+          life: 3000
+        });
+      }
     });
   }
 
@@ -113,5 +133,7 @@ export class ClientProfilePageComponent implements OnInit {
     this.authService.logout(); // Вызов метода выхода из сервиса
     this.router.navigate(['/auth']); // Перенаправление на страницу авторизации
   }
+
+  
 
 }
