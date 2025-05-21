@@ -1,14 +1,14 @@
-<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="orderForm">
   <div class="flex flex-column gap-8">
   
     <div class="flex flex-column gap-3">
       <div class="flex flex-column gap-2">
-        <label for="service">Услуга</label>
+        <label for="service">Вид работы</label>
         <p-dropdown 
-        id="service" 
-        formControlName="service" 
-        [options]="services" optionLabel="name" 
-        placeholder="Выберите услугу">
+        id="work" 
+        formControlName="work" 
+        [options]="works" optionLabel="name" 
+        placeholder="Выберите вид работы">
         </p-dropdown>
       </div>
 
@@ -65,7 +65,7 @@
       label="Отправить" 
       type="submit" 
       [disabled]="orderForm.invalid"
-      (onClick)="onOrderSubmit(minDate)">
+      (onClick)="onSubmit()">
       </p-button>
     </div>
 

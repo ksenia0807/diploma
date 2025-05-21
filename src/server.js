@@ -28,6 +28,13 @@ app.get('/api/specialistsOrders', (req, res) => {
   res.json(orders);
 });
 
+app.post('/api/specialistsOrders', (req, res) => {
+  const newOrder = req.body;
+  newOrder.id = orders.length > 0 ? Math.max(...orders.map(o => o.id)) + 1 : 1;
+  orders.push(newOrder);
+  res.json(newOrder);
+});
+
 app.get('/api/specialistsProfiles', (req, res) => {
   res.json(specialistsProfiles);
 });

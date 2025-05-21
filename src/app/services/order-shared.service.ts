@@ -20,6 +20,14 @@ export class OrderSharedService{
     return this.http.get<Order[]>('/api/specialistsOrders');
   }
 
+  public getOrdersBySpecialist(specialistId: number): Observable<Order[]> {
+      return this.http.get<Order[]>(`/api/reviews?specialistId=${specialistId}`);
+  }
+
+  public createOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>('/api/specialistsOrders', order);
+  }
+
   public getSpecialistOrderById(id: number): Observable<Order | undefined> {
     return this.getSpecialistOrders().pipe(
       map(specialistOrders => specialistOrders.find(so => so.id === id))
