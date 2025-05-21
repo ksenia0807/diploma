@@ -11,8 +11,8 @@
             </p-dropdown>
         </div>
 
-        <div *ngIf="user"
-        (click)="openProfile(user)" class="profile">
+        <div *ngIf="currentClient"
+        (click)="openProfile()" class="profile">
             <i class="pi pi-user"></i>
         </div>
     </div>
@@ -23,6 +23,7 @@
       <p-dropdown
       [options]="Cityfilters" 
       [(ngModel)]="selectedCity" 
+      (onChange)="onCityChange()"
       placeholder="Город"
       optionLabel="name" 
       [filter]="true"
@@ -66,6 +67,7 @@
           <p-dropdown
           [options]="ratingOptions" 
           [(ngModel)]="ratingOption" 
+          (onChange)="onRatingChange()"
           inputId="float-label"
           optionLabel="label" 
           [showClear]="true" />

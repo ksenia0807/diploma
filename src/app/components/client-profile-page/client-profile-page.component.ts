@@ -34,6 +34,7 @@ export class ClientProfilePageComponent implements OnInit {
     client?: Client;
     order?: Order;
     clientOrders: Order[] = [];
+    currentClientId: number | null = null;
     displayReviewDialog = false;
     selectedOrder?: Order;
     newReview = {
@@ -48,7 +49,9 @@ export class ClientProfilePageComponent implements OnInit {
     private orderService: OrderSharedService,
     private reviewService: ReviewService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.currentClientId = Number(this.route.snapshot.paramMap.get('id'));
+  }
 
   ngOnInit() {
     const userId = Number(this.route.snapshot.paramMap.get('id'));

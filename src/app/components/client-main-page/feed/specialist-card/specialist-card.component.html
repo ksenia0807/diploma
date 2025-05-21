@@ -1,6 +1,6 @@
 <div class="feed">
   <div class="specialist-card flex cursor-pointer"
-     *ngFor="let service of services"
+     *ngFor="let service of filteredServices"
      (click)="openCard(service)">
     <img class="pic" [src]="service.photos[0]" width="160px" height="100%" />
     <div  *ngIf="service.specialist" class="flex flex-column gap-1">

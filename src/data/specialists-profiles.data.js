@@ -15,7 +15,6 @@ var specialistsProfiles = [
         id: 1,
         title: 'Услуги сантехника',
         photos: ['assets/man.jpg', 'assets/2.jpg', 'assets/3.jpg'],
-        location: 'г. Москва',
         works: [
           { name: 'Устранение засора', price: 1500 },
           { name: 'Замена смесителя', price: 1200 },
